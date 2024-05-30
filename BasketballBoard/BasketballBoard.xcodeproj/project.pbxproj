@@ -8,18 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */; };
-		A60CD4812C07808900CC8BC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4802C07808900CC8BC1 /* ContentView.swift */; };
 		A60CD4832C07808C00CC8BC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60CD4822C07808C00CC8BC1 /* Assets.xcassets */; };
 		A60CD4872C07808C00CC8BC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60CD4862C07808C00CC8BC1 /* Preview Assets.xcassets */; };
+		A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */; };
+		A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4962C07877A00CC8BC1 /* PlayerView.swift */; };
+		A60CD4992C0787C500CC8BC1 /* BoardScreenConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */; };
+		A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */; };
+		A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */; };
+		A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */; };
+		A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4A12C0789A000CC8BC1 /* BoardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A60CD47B2C07808900CC8BC1 /* BasketballBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasketballBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketballBoardApp.swift; sourceTree = "<group>"; };
-		A60CD4802C07808900CC8BC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A60CD4822C07808C00CC8BC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A60CD4842C07808C00CC8BC1 /* BasketballBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasketballBoard.entitlements; sourceTree = "<group>"; };
 		A60CD4862C07808C00CC8BC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInstaller.swift; sourceTree = "<group>"; };
+		A60CD4962C07877A00CC8BC1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardScreenConstants.swift; sourceTree = "<group>"; };
+		A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
+		A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
+		A60CD4A12C0789A000CC8BC1 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,11 +64,11 @@
 		A60CD47D2C07808900CC8BC1 /* BasketballBoard */ = {
 			isa = PBXGroup;
 			children = (
-				A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */,
-				A60CD4802C07808900CC8BC1 /* ContentView.swift */,
-				A60CD4822C07808C00CC8BC1 /* Assets.xcassets */,
-				A60CD4842C07808C00CC8BC1 /* BasketballBoard.entitlements */,
+				A60CD4922C0785A900CC8BC1 /* SupportingFiles */,
+				A60CD48F2C07857500CC8BC1 /* Sources */,
+				A60CD4902C07859400CC8BC1 /* Resources */,
 				A60CD4852C07808C00CC8BC1 /* Preview Content */,
+				A60CD4842C07808C00CC8BC1 /* BasketballBoard.entitlements */,
 			);
 			path = BasketballBoard;
 			sourceTree = "<group>";
@@ -67,6 +79,52 @@
 				A60CD4862C07808C00CC8BC1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A60CD48F2C07857500CC8BC1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */,
+				A60CD4932C0786E600CC8BC1 /* BoardFlow */,
+				A60CD49A2C0788A800CC8BC1 /* Extensionns */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		A60CD4902C07859400CC8BC1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD4822C07808C00CC8BC1 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A60CD4922C0785A900CC8BC1 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		A60CD4932C0786E600CC8BC1 /* BoardFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */,
+				A60CD4962C07877A00CC8BC1 /* PlayerView.swift */,
+				A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */,
+				A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */,
+				A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */,
+				A60CD4A12C0789A000CC8BC1 /* BoardView.swift */,
+			);
+			path = BoardFlow;
+			sourceTree = "<group>";
+		};
+		A60CD49A2C0788A800CC8BC1 /* Extensionns */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */,
+			);
+			path = Extensionns;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +197,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A60CD4812C07808900CC8BC1 /* ContentView.swift in Sources */,
+				A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */,
 				A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */,
+				A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */,
+				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
+				A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */,
+				A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */,
+				A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */,
+				A60CD4992C0787C500CC8BC1 /* BoardScreenConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,9 +346,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -320,9 +383,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
