@@ -14,7 +14,5 @@ struct BoardView: UIViewControllerRepresentable {
         BoardViewController()
     }
     
-    func updateUIViewController(_ uiViewController: BoardViewController, context: Context) {
-        
-    }
+    func updateUIViewController(_ uiViewController: BoardViewController, context: Context) { }
 }

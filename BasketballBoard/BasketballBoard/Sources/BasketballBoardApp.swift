@@ -13,18 +13,15 @@ struct BasketballBoardApp: App {
         WindowGroup {
             TabView {
                 BoardView()
+                    .background(.brown.opacity(0.7))
                     .tabItem {
                         Image(systemName: "clipboard.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
                         Text("Board")
                     }
                 
                 Text("My team")
                     .tabItem {
                         Image(systemName: "person.3.sequence")
-                            .resizable()
-                            .frame(width: 30, height: 30)
                         Text("My Team")
                     }
                 

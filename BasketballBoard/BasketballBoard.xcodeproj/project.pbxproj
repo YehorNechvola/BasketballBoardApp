@@ -86,7 +86,7 @@
 			children = (
 				A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */,
 				A60CD4932C0786E600CC8BC1 /* BoardFlow */,
-				A60CD49A2C0788A800CC8BC1 /* Extensionns */,
+				A60CD49A2C0788A800CC8BC1 /* Extensions */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -109,22 +109,54 @@
 		A60CD4932C0786E600CC8BC1 /* BoardFlow */ = {
 			isa = PBXGroup;
 			children = (
-				A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */,
-				A60CD4962C07877A00CC8BC1 /* PlayerView.swift */,
-				A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */,
-				A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */,
-				A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */,
-				A60CD4A12C0789A000CC8BC1 /* BoardView.swift */,
+				A67F404E2C09A6990006EAC0 /* Views */,
+				A67F40502C09A7070006EAC0 /* Services */,
+				A67F404F2C09A6F50006EAC0 /* Constants */,
+				A67F40512C09A7130006EAC0 /* ViewModel */,
 			);
 			path = BoardFlow;
 			sourceTree = "<group>";
 		};
-		A60CD49A2C0788A800CC8BC1 /* Extensionns */ = {
+		A60CD49A2C0788A800CC8BC1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */,
 			);
-			path = Extensionns;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A67F404E2C09A6990006EAC0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */,
+				A60CD4A12C0789A000CC8BC1 /* BoardView.swift */,
+				A60CD4962C07877A00CC8BC1 /* PlayerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A67F404F2C09A6F50006EAC0 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		A67F40502C09A7070006EAC0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A67F40512C09A7130006EAC0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,7 +379,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -384,7 +416,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;

@@ -29,12 +29,12 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
         case isShowed
         case isHiding
     }
-
+    
     enum TypeOfPlayer {
         case attacking
         case defending
     }
-
+    
     enum SideOfCourt {
         case home
         case away
@@ -66,15 +66,15 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
     func setupBoard() {
         guard let view else { return }
         boardImageView = UIImageView()
-        boardImageView.contentMode = .scaleAspectFit
         boardImageView.image = BoardScreenImages.boardImage
         boardImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(boardImageView)
+        
         NSLayoutConstraint.activate([
-            boardImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            boardImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            boardImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            boardImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            boardImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45),
+            boardImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25),
+            boardImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            boardImageView.widthAnchor.constraint(equalTo: boardImageView.heightAnchor, multiplier: 0.622)
         ])
     }
 
@@ -172,7 +172,18 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
         
         collisionBehavior = UICollisionBehavior(items: attackingPlayers + defendingPlayers)
         collisionBehavior.translatesReferenceBoundsIntoBoundary = true
-        collisionBehavior.setTranslatesReferenceBoundsIntoBoundary(with: UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0))
+        
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let insets = UIEdgeInsets(top: self.boardImageView.frame.minY,
+                                      left: 0,
+                                      bottom: view.safeAreaInsets.bottom + 25,
+                                      right: 0)
+            
+            self.collisionBehavior.setTranslatesReferenceBoundsIntoBoundary(with: insets)
+        }
+        
         collisionBehavior.action = {
             self.attackingPlayers.forEach { $0.transform = CGAffineTransform.identity }
         }

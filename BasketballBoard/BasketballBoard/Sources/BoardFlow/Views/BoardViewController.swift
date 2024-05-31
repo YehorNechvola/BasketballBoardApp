@@ -71,12 +71,13 @@ final class BoardViewController: UIViewController {
         NSLayoutConstraint.activate([
             buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            buttonsStackView.heightAnchor.constraint(equalToConstant: 50)
+            buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            buttonsStackView.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         [shootButton, defendersButton, changeSideButton, resetButton].forEach { button in
-            button.setTitleColor(.orange, for: .normal)
+            button.setTitleColor(.black, for: .normal)
+            button.setTitleColor(.black.withAlphaComponent(0.3), for: .highlighted)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
             let width = button.titleLabel?.intrinsicContentSize.width
@@ -97,7 +98,6 @@ final class BoardViewController: UIViewController {
     }
     
     private func setup() {
-        view.backgroundColor = .brown
         viewModel = BoardViewModel()
         viewModel.basketballBoardInstaller.view = view
         viewModel.setBasketballBoardWithPlayers()
