@@ -35,9 +35,11 @@ final class BoardViewModel: BoardViewModelProtocol {
 
     func setBasketballBoardWithPlayers() {
         basketballBoardInstaller.setupBoard()
-        basketballBoardInstaller.addPlayer(type: .attacking, backgroundColor: .blue)
-        basketballBoardInstaller.makeCollisionOnPlayersViews()
-        basketballBoardInstaller.addBallView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.basketballBoardInstaller.addPlayer(type: .attacking, backgroundColor: .blue)
+            self.basketballBoardInstaller.makeCollisionOnPlayersViews()
+            self.basketballBoardInstaller.addBallView()
+        }
     }
     
     func shootBall() {

@@ -86,8 +86,8 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
             playerView.contentMode = .scaleAspectFill
             playerView.backgroundColor = backgroundColor
             playerView.dropShadow()
-            playerView.frame = CGRect(x: 0, y: 0, width: BoardScreenConstants.playerWidth, height: BoardScreenConstants.playerWidth)
-            playerView.layer.cornerRadius = BoardScreenConstants.playerWidth / 2
+            playerView.frame = CGRect(x: 0, y: 0, width: BoardScreenPointer.playerWidth, height: BoardScreenPointer.playerWidth)
+            playerView.layer.cornerRadius = BoardScreenPointer.playerWidth / 2
             
             playerView.isUserInteractionEnabled = true
             let gesture = UIPanGestureRecognizer(target: self, action: #selector(moveView(gesture:)))
@@ -98,13 +98,11 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
             switch type {
             case .attacking:
                 playerView.setupNumber(item + 1)
-                playerView.center = BoardScreenConstants.attackingPlayersCoordinates[item]
+                playerView.center = BoardScreenPointer.getPlayerCoordinates(frame: boardImageView.frame, type: type, side: sideOfCourt)[item]
                 attackingPlayers.append(playerView)
             case .defending:
                 playerView.alpha = 0
-                sideOfCourt == .home ?
-                (playerView.center = BoardScreenConstants.defendingPlayersCoordinates[item]) :
-                (playerView.center = BoardScreenConstants.reversedDefendingPlayersCoordinates[item])
+                playerView.center = BoardScreenPointer.getPlayerCoordinates(frame: boardImageView.frame, type: type, side: sideOfCourt)[item]
                 
                 defendingPlayers.append(playerView)
             }
@@ -154,8 +152,8 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
     }
     
     func addBallView() {
-        ballImageView = UIImageView(frame: .init(x: 0, y: 0, width: BoardScreenConstants.ballWidth, height: BoardScreenConstants.ballWidth))
-        ballImageView.center = BoardScreenConstants.pointBallImageView
+        ballImageView = UIImageView(frame: .init(x: 0, y: 0, width: BoardScreenPointer.ballWidth, height: BoardScreenPointer.ballWidth))
+        ballImageView.center =  BoardScreenPointer.getBallCenterPoint(frame: boardImageView.frame, side: sideOfCourt)
         ballImageView.layer.cornerRadius = ballImageView.frame.width / 2
         ballImageView.image = BoardScreenImages.ballImage
         ballImageView.isUserInteractionEnabled = true
@@ -224,7 +222,7 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
     }
     
     private func bringBackIfOutOfBounds(view: UIView) {
-        let distance = BoardScreenConstants.playerWidth / 2
+        let distance = BoardScreenPointer.playerWidth / 2
         
         if view.center.x < boardImageView.frame.minX + distance {
             view.center.x = boardImageView.frame.minX + distance
@@ -240,40 +238,25 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
     }
     
     func shootBall() {
-        guard !isBallShooted else { return }
-        isBallShooted = true
+        let pointToShoot = BoardScreenPointer.getBasketCenterPoint(frame: boardImageView.frame, side: sideOfCourt)
+        
+        guard pointToShoot != ballImageView.center else { return }
         
         let radians = CGFloat(rotationAngle / 180 * Double.pi)
         rotationAngle == 360 ? (rotationAngle = 180) : (rotationAngle += 180)
-        
-        var pointToShoot = CGPoint()
-        sideOfCourt == .home ?
-        (pointToShoot = BoardScreenConstants.pointOfBasket) :
-        (pointToShoot = BoardScreenConstants.reversedPointOfBasket)
-        
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.85) {
             self.ballImageView.center = pointToShoot
             self.ballImageView.transform = CGAffineTransform(rotationAngle: radians)
         }
+        
+        isBallShooted = true
     }
     
     func setPlayersToOriginPoints() {
         animator.removeAllBehaviors()
-        
-        var attackingPlayersCoordinates = [CGPoint]()
-        var defendingPlayersCoordinates = [CGPoint]()
-        var ballPoint = CGPoint()
-        
-        switch sideOfCourt {
-        case .home:
-            attackingPlayersCoordinates = BoardScreenConstants.attackingPlayersCoordinates
-            defendingPlayersCoordinates = BoardScreenConstants.defendingPlayersCoordinates
-            ballPoint = BoardScreenConstants.pointBallImageView
-        case .away:
-            attackingPlayersCoordinates = BoardScreenConstants.reversedAttackingPlayersCoordinates
-            defendingPlayersCoordinates = BoardScreenConstants.reversedDefendingPlayersCoordinates
-            ballPoint = BoardScreenConstants.reversedBallImageView
-        }
+        let attackingPlayersCoordinates = BoardScreenPointer.getPlayerCoordinates(frame: boardImageView.frame, type: .attacking, side: sideOfCourt)
+        let defendingPlayersCoordinates = BoardScreenPointer.getPlayerCoordinates(frame: boardImageView.frame, type: .defending, side: sideOfCourt)
+        let ballPoint = BoardScreenPointer.getBallCenterPoint(frame: boardImageView.frame, side: sideOfCourt)
         
         UIView.animate(withDuration: 0.5) {
             self.ballImageView.center = ballPoint
