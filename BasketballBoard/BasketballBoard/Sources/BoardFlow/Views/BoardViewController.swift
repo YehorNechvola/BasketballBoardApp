@@ -47,7 +47,7 @@ final class BoardViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
-        stackView.alignment = .center
+        stackView.alignment = .bottom
         stackView.spacing = 5
         
         return stackView
@@ -72,7 +72,7 @@ final class BoardViewController: UIViewController {
             buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-            buttonsStackView.heightAnchor.constraint(equalToConstant: 20)
+            buttonsStackView.heightAnchor.constraint(equalToConstant: 30)
         ])
         
         [shootButton, defendersButton, changeSideButton, resetButton].forEach { button in

@@ -40,6 +40,11 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
         case away
     }
     
+    enum Constants {
+        static let boardImage = UIImage(named: "board")
+        static let ballImage = UIImage(named: "ball")
+    }
+    
     //MARK: - Properties
     var view: UIView?
     private var boardImageView: UIImageView!
@@ -66,7 +71,7 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
     func setupBoard() {
         guard let view else { return }
         boardImageView = UIImageView()
-        boardImageView.image = BoardScreenImages.boardImage
+        boardImageView.image = Constants.boardImage
         boardImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(boardImageView)
         
@@ -86,8 +91,12 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
             playerView.contentMode = .scaleAspectFill
             playerView.backgroundColor = backgroundColor
             playerView.dropShadow()
-            playerView.frame = CGRect(x: 0, y: 0, width: BoardScreenPointer.playerWidth, height: BoardScreenPointer.playerWidth)
-            playerView.layer.cornerRadius = BoardScreenPointer.playerWidth / 2
+            
+            let width = boardImageView.frame.width * 0.075
+            playerView.frame = CGRect(origin: .zero, size: CGSize(width: width, height: width))
+            playerView.layer.cornerRadius = width / 2
+            playerView.layer.borderColor = UIColor.black.cgColor
+            playerView.layer.borderWidth = width * 0.033
             
             playerView.isUserInteractionEnabled = true
             let gesture = UIPanGestureRecognizer(target: self, action: #selector(moveView(gesture:)))
@@ -152,10 +161,13 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
     }
     
     func addBallView() {
-        ballImageView = UIImageView(frame: .init(x: 0, y: 0, width: BoardScreenPointer.ballWidth, height: BoardScreenPointer.ballWidth))
+        let width = boardImageView.frame.width * 0.0625
+        ballImageView = UIImageView(frame: .init(origin: .zero, size: CGSize(width: width, height: width)))
         ballImageView.center =  BoardScreenPointer.getBallCenterPoint(frame: boardImageView.frame, side: sideOfCourt)
-        ballImageView.layer.cornerRadius = ballImageView.frame.width / 2
-        ballImageView.image = BoardScreenImages.ballImage
+        ballImageView.layer.cornerRadius = width / 2
+        ballImageView.layer.borderColor = UIColor.black.cgColor
+        ballImageView.layer.borderWidth = width * 0.033
+        ballImageView.image = Constants.ballImage
         ballImageView.isUserInteractionEnabled = true
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(moveBall(gesture:)))
         ballImageView.addGestureRecognizer(gesture)
@@ -171,13 +183,11 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
         collisionBehavior = UICollisionBehavior(items: attackingPlayers + defendingPlayers)
         collisionBehavior.translatesReferenceBoundsIntoBoundary = true
         
-        
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let insets = UIEdgeInsets(top: self.boardImageView.frame.minY,
-                                      left: 0,
+                                      left: self.boardImageView.frame.minX,
                                       bottom: view.safeAreaInsets.bottom + 25,
-                                      right: 0)
+                                      right: self.boardImageView.frame.minX)
             
             self.collisionBehavior.setTranslatesReferenceBoundsIntoBoundary(with: insets)
         }
@@ -222,7 +232,7 @@ final class BasketBoardInstaller: BasketBoardInstallerProtocol {
     }
     
     private func bringBackIfOutOfBounds(view: UIView) {
-        let distance = BoardScreenPointer.playerWidth / 2
+        let distance = (boardImageView.frame.width * 0.075) / 2
         
         if view.center.x < boardImageView.frame.minX + distance {
             view.center.x = boardImageView.frame.minX + distance
@@ -303,34 +313,16 @@ extension BasketBoardInstaller {
         }
         
         if isIntersectBallWithPlayer {
-            var identX: CGFloat = 0
-            var identY: CGFloat = 0
+            let identX = gestureView.frame.width * 0.433
+            let identY = gestureView.frame.width * 0.5
             
             if !isBallWithPlayer {
-                if ballImageView.center.x < gestureView.center.x {
-                    identX = -13
-                    xPointIdentFromBall = identX
-                } else {
-                    identX = 13
-                    xPointIdentFromBall = identX
-                }
-                
-                if ballImageView.center.y < gestureView.center.y {
-                    identY = 15
-                    yPointIdentFromBall = identY
-                } else {
-                    identY = -15
-                    yPointIdentFromBall = identY
-                }
-            } else {
-                identX = xPointIdentFromBall
-                identY = yPointIdentFromBall
+                xPointIdentFromBall = ballImageView.center.x < gestureView.center.x ? -identX : identX
+                yPointIdentFromBall = ballImageView.center.y < gestureView.center.y ? identY : -identY
             }
-            
         
-            ballImageView.center.x = gestureView.center.x + identX
-            ballImageView.center.y = gestureView.center.y - identY
-            
+            ballImageView.center.x = gestureView.center.x + xPointIdentFromBall
+            ballImageView.center.y = gestureView.center.y - yPointIdentFromBall
             
             isBallWithPlayer = true
         }

@@ -16,7 +16,8 @@ final class PlayerView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 27)
+        label.adjustsFontSizeToFitWidth = true
         
         return label
     }()

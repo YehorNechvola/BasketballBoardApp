@@ -12,7 +12,7 @@
 		A60CD4872C07808C00CC8BC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60CD4862C07808C00CC8BC1 /* Preview Assets.xcassets */; };
 		A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */; };
 		A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4962C07877A00CC8BC1 /* PlayerView.swift */; };
-		A60CD4992C0787C500CC8BC1 /* BoardScreenConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */; };
+		A60CD4992C0787C500CC8BC1 /* BoardScreenPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4982C0787C500CC8BC1 /* BoardScreenPointer.swift */; };
 		A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */; };
 		A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */; };
 		A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */; };
@@ -27,7 +27,7 @@
 		A60CD4862C07808C00CC8BC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInstaller.swift; sourceTree = "<group>"; };
 		A60CD4962C07877A00CC8BC1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
-		A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardScreenConstants.swift; sourceTree = "<group>"; };
+		A60CD4982C0787C500CC8BC1 /* BoardScreenPointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardScreenPointer.swift; sourceTree = "<group>"; };
 		A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
 		A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
@@ -111,7 +111,6 @@
 			children = (
 				A67F404E2C09A6990006EAC0 /* Views */,
 				A67F40502C09A7070006EAC0 /* Services */,
-				A67F404F2C09A6F50006EAC0 /* Constants */,
 				A67F40512C09A7130006EAC0 /* ViewModel */,
 			);
 			path = BoardFlow;
@@ -135,18 +134,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A67F404F2C09A6F50006EAC0 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				A60CD4982C0787C500CC8BC1 /* BoardScreenConstants.swift */,
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
 		A67F40502C09A7070006EAC0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				A60CD4942C07871700CC8BC1 /* BoardInstaller.swift */,
+				A60CD4982C0787C500CC8BC1 /* BoardScreenPointer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -236,7 +228,7 @@
 				A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */,
 				A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */,
 				A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */,
-				A60CD4992C0787C500CC8BC1 /* BoardScreenConstants.swift in Sources */,
+				A60CD4992C0787C500CC8BC1 /* BoardScreenPointer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
