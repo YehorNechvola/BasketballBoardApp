@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct BasketballBoardApp: App {
+    @StateObject var myTeamViewModel = MyTeamViewModel()
+    
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -18,8 +20,10 @@ struct BasketballBoardApp: App {
                         Image(systemName: "clipboard.fill")
                         Text("Board")
                     }
-                
-                Text("My team")
+    
+                MyTeamView()
+                    .background(.brown.opacity(0.3))
+                    .environmentObject(myTeamViewModel)
                     .tabItem {
                         Image(systemName: "person.3.sequence")
                         Text("My Team")
@@ -40,7 +44,7 @@ struct BasketballBoardApp: App {
             .onAppear() {
                 UITabBar.appearance().backgroundColor = .brown.withAlphaComponent(0.5)
             }
-            .tint(.black)
+//            .tint(.black)
         }
     }
 }

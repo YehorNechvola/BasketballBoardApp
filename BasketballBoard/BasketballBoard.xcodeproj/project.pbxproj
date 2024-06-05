@@ -17,6 +17,11 @@
 		A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */; };
 		A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */; };
 		A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4A12C0789A000CC8BC1 /* BoardView.swift */; };
+		A62638452C0DC78800FB6BE2 /* MyTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638442C0DC78800FB6BE2 /* MyTeamView.swift */; };
+		A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638462C0DC7A800FB6BE2 /* MyTeamEntity.swift */; };
+		A62638492C0DC7BE00FB6BE2 /* MyTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */; };
+		A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638512C0DF31500FB6BE2 /* PlayersListView.swift */; };
+		A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +37,11 @@
 		A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 		A60CD4A12C0789A000CC8BC1 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		A62638442C0DC78800FB6BE2 /* MyTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamView.swift; sourceTree = "<group>"; };
+		A62638462C0DC7A800FB6BE2 /* MyTeamEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamEntity.swift; sourceTree = "<group>"; };
+		A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamViewModel.swift; sourceTree = "<group>"; };
+		A62638512C0DF31500FB6BE2 /* PlayersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListView.swift; sourceTree = "<group>"; };
+		A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +96,7 @@
 			children = (
 				A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */,
 				A60CD4932C0786E600CC8BC1 /* BoardFlow */,
+				A62638402C0DC6E100FB6BE2 /* MyTeamFlow */,
 				A60CD49A2C0788A800CC8BC1 /* Extensions */,
 			);
 			path = Sources;
@@ -122,6 +133,66 @@
 				A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A62638402C0DC6E100FB6BE2 /* MyTeamFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A62638412C0DC6F600FB6BE2 /* MyTeamScreen */,
+				A62638422C0DC72100FB6BE2 /* AddPlayerScreen */,
+				A62638432C0DC73400FB6BE2 /* PlayerProfileScreen */,
+			);
+			path = MyTeamFlow;
+			sourceTree = "<group>";
+		};
+		A62638412C0DC6F600FB6BE2 /* MyTeamScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A626384A2C0DD83400FB6BE2 /* Views */,
+				A626384B2C0DD85300FB6BE2 /* Entity */,
+				A626384C2C0DD86800FB6BE2 /* ViewModel */,
+			);
+			path = MyTeamScreen;
+			sourceTree = "<group>";
+		};
+		A62638422C0DC72100FB6BE2 /* AddPlayerScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddPlayerScreen;
+			sourceTree = "<group>";
+		};
+		A62638432C0DC73400FB6BE2 /* PlayerProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlayerProfileScreen;
+			sourceTree = "<group>";
+		};
+		A626384A2C0DD83400FB6BE2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A62638442C0DC78800FB6BE2 /* MyTeamView.swift */,
+				A62638512C0DF31500FB6BE2 /* PlayersListView.swift */,
+				A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A626384B2C0DD85300FB6BE2 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				A62638462C0DC7A800FB6BE2 /* MyTeamEntity.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		A626384C2C0DD86800FB6BE2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		A67F404E2C09A6990006EAC0 /* Views */ = {
@@ -221,11 +292,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A62638492C0DC7BE00FB6BE2 /* MyTeamViewModel.swift in Sources */,
 				A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */,
+				A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */,
 				A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */,
+				A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */,
 				A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */,
 				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
 				A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */,
+				A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */,
+				A62638452C0DC78800FB6BE2 /* MyTeamView.swift in Sources */,
 				A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */,
 				A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */,
 				A60CD4992C0787C500CC8BC1 /* BoardScreenPointer.swift in Sources */,
