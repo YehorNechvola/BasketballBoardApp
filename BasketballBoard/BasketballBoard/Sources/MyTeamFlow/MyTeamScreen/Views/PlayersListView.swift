@@ -12,6 +12,7 @@ struct PlayersListView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
     @State private var shouldShowMessage: Bool = false
     @State private var cancellable: AnyCancellable?
+    @State private var isPresentedActionSheet = false
     
     var body: some View {
         GeometryReader { proxy in
@@ -42,8 +43,28 @@ struct PlayersListView: View {
                 showStartingLinupMessage(proxy: proxy)
             }
         }
+        
+        .confirmationDialog("Removing player", isPresented: $isPresentedActionSheet) {
+            Button(role: .destructive) {
+                withAnimation {
+                    viewModel.removePlayer(player: viewModel.playerToDelete)
+                }
+                
+            } label: {
+                Text("Remove player")
+            }
+            
+            Button(role: .cancel) {
+                viewModel.setPlayerToDelete(nil)
+            } label: {
+                Text("Cancel")
+            }
+        } message: {
+            Text("Are you sure you want to remove \((viewModel.playerToDelete?.name ?? "") + " " + (viewModel.playerToDelete?.surname ?? ""))?")
+        }
     }
 }
+
 
 //MARK: - Private methods
 private extension PlayersListView {
@@ -100,13 +121,11 @@ private extension PlayersListView {
     }
     
     func createDeleteButton(for player: Player) -> some View {
-        Button(role: .destructive) {
-            viewModel.removePlayer(player: player)
+        Button() {
+            viewModel.setPlayerToDelete(player)
+            isPresentedActionSheet = true
         } label: {
-            VStack {
-                Text("Delete")
-                Image(systemName: "trash")
-            }
+            Image(systemName: "trash")
         }
         .tint(.red)
     }
@@ -145,7 +164,7 @@ private extension PlayersListView {
     func scheduleHideMessage() {
            cancelHiddingMessage()
 
-        let timer = Timer.publish(every: 1.5, on: .main, in: .common).autoconnect()
+        let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
            cancellable = timer.sink { _ in
                withAnimation {
                    shouldShowMessage = false

@@ -22,6 +22,8 @@ final class MyTeamViewModel: ObservableObject {
     @Published var myTeams: [Team] = []
     @Published var currentTeam: Team?
     @Published var currentTeamPlayers: [Player] = []
+    var playerToDelete: Player?
+    
     var shouldShowMessage = false
     
     var startingPlayers: [Player] {
@@ -53,13 +55,17 @@ final class MyTeamViewModel: ObservableObject {
         currentTeamPlayers = team.players
     }
     
-    func removePlayer(player: Player) {
+    func removePlayer(player: Player?) {
         guard let indexToRemove = currentTeam?.players.firstIndex(where: {$0 == player}) else { return }
         guard let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
         
         currentTeamPlayers.remove(at: indexToRemove)
         currentTeam?.players.remove(at: indexToRemove)
         myTeams[indexOfTeam].players.remove(at: indexToRemove)
+    }
+    
+    func setPlayerToDelete(_ player: Player?) {
+        playerToDelete = player
     }
     
     func movePlayerToOrFromBench(_ player: Player) {
@@ -108,7 +114,7 @@ private extension MyTeamViewModel {
 //        var team1 = Team(name: "First team", players: players1)
 //        var team2 = Team(name: "Second", players: players2)
 //        let team3 = Team(name: "Third team")
-        var team4 = Team(name: "Four team", players: players1 + players2)
+        let team4 = Team(name: "Four team", players: players1 + players2)
 //        let team5 = Team(name: "Five team")
 //        var team6 = Team(name: "Six team", players: players2 + players1)
 //        var team7 = Team(name: "Seven team")
