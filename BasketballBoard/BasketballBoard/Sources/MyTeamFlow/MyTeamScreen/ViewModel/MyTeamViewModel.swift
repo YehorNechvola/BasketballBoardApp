@@ -22,6 +22,8 @@ final class MyTeamViewModel: ObservableObject {
     @Published var myTeams: [Team] = []
     @Published var currentTeam: Team?
     @Published var currentTeamPlayers: [Player] = []
+    var shouldShowMessage = false
+    
     var startingPlayers: [Player] {
         currentTeamPlayers.filter { $0.isStartingPlayer }
             .sorted{ $0.position.rawValue < $1.position.rawValue }
@@ -36,7 +38,7 @@ final class MyTeamViewModel: ObservableObject {
         startingPlayers.count < 5
     }
     
-    var shouldHide = false
+    
     
     //MARK: - Init
     init() {
@@ -70,7 +72,7 @@ final class MyTeamViewModel: ObservableObject {
             myTeams[indexOfTeam].players[indexToMove].isStartingPlayer.toggle()
         } else {
             guard isEnableAddPlayersToStart else {
-                shouldHide = true
+                shouldShowMessage = true
                 return
             }
             currentTeamPlayers[indexToMove].isStartingPlayer.toggle()

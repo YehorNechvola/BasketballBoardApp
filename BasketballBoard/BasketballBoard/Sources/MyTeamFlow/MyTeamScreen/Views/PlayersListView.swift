@@ -6,32 +6,40 @@
 //
 
 import SwiftUI
+import Combine
 
 struct PlayersListView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
-    @State var shouldShowView: Bool = false
+    @State private var shouldShowMessage: Bool = false
+    @State private var cancellable: AnyCancellable?
     
     var body: some View {
-        ZStack {
-            List {
-                if !viewModel.startingPlayers.isEmpty {
-                    playerSection(players: viewModel.startingPlayers, header: "Starting players")
+        GeometryReader { proxy in
+            ZStack {
+                VStack {
+                    List {
+                        if !viewModel.myTeams.isEmpty {
+                            createTeamSection()
+                        }
+                        
+                        if !viewModel.startingPlayers.isEmpty {
+                            createPlayerSection(players: viewModel.startingPlayers, header: "Starting players")
+                        }
+                        
+                        if !viewModel.benchPlayers.isEmpty {
+                            createPlayerSection(players: viewModel.benchPlayers, header: "Bench players")
+                        }
+                    }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
                 
-                if !viewModel.benchPlayers.isEmpty {
-                    playerSection(players: viewModel.benchPlayers, header: "Bench players")
+                if viewModel.currentTeamPlayers.isEmpty {
+                    Text("Create new team or add players to current team")
+                        .foregroundStyle(.gray)
                 }
-            }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            
-            if viewModel.currentTeamPlayers.isEmpty {
-                Text("Create new team or add players to current team")
-                    .foregroundStyle(.gray)
-            }
-            
-            if shouldShowView {
-                Text("Starting linup has already been formed")
+                
+                showStartingLinupMessage(proxy: proxy)
             }
         }
     }
@@ -39,13 +47,51 @@ struct PlayersListView: View {
 
 //MARK: - Private methods
 private extension PlayersListView {
-    func playerSection(players: [Player], header: String) -> some View {
+    func createTeamSection() -> some View {
+        Section {
+            HStack(spacing: 20) {
+                Image(systemName: "list.bullet.circle.fill")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .foregroundStyle(.gray)
+                
+                Text(viewModel.currentTeam?.name ?? "")
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "")
+                }
+                .buttonStyle(.borderless)
+                 
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Text("switch")
+                            .foregroundStyle(.gray)
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(.gray)
+                    }
+                }
+                .buttonStyle(.borderless)
+            }
+            
+        } header: {
+            Text("Current team")
+        }
+    }
+    
+    func createPlayerSection(players: [Player], header: String) -> some View {
         Section {
             ForEach(players, id: \.name) { player in
                 PlayerItemViewCell(player: player)
                     .swipeActions {
-                        deleteButton(for: player)
-                        moveButton(for: player)
+                        createDeleteButton(for: player)
+                        createMoveButton(for: player)
                     }
             }
         } header: {
@@ -53,7 +99,7 @@ private extension PlayersListView {
         }
     }
     
-    func deleteButton(for player: Player) -> some View {
+    func createDeleteButton(for player: Player) -> some View {
         Button(role: .destructive) {
             viewModel.removePlayer(player: player)
         } label: {
@@ -62,21 +108,17 @@ private extension PlayersListView {
                 Image(systemName: "trash")
             }
         }
+        .tint(.red)
     }
     
-    func moveButton(for player: Player) -> some View {
+    func createMoveButton(for player: Player) -> some View {
         Button() {
-            withAnimation(.smooth) {
+            cancelHiddingMessage()
+            scheduleHideMessage()
+            
+            withAnimation(.spring) {
                 viewModel.movePlayerToOrFromBench(player)
-                shouldShowView = viewModel.shouldHide
-            } completion: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    viewModel.shouldHide = false
-                    withAnimation {
-                        shouldShowView = false
-                    }
-                    
-                }
+                shouldShowMessage = viewModel.shouldShowMessage
             }
             
         } label: {
@@ -86,6 +128,38 @@ private extension PlayersListView {
         }
         .tint(player.isStartingPlayer ? .yellow : .green)
     }
+    
+    func showStartingLinupMessage(proxy: GeometryProxy) -> some View {
+        let yOffset: CGFloat = shouldShowMessage ? 0 : -25
+        
+        return VStack {
+            Text("Starting linup has already been formed")
+                .frame(width: proxy.size.width, height: 25)
+                .background(.orange)
+            .offset(y: yOffset)
+            
+            Spacer()
+        }
+    }
+    
+    func scheduleHideMessage() {
+           cancelHiddingMessage()
+
+        let timer = Timer.publish(every: 1.5, on: .main, in: .common).autoconnect()
+           cancellable = timer.sink { _ in
+               withAnimation {
+                   shouldShowMessage = false
+                   viewModel.shouldShowMessage = false
+               }
+               
+               cancellable?.cancel()
+           }
+       }
+
+       func cancelHiddingMessage() {
+           cancellable?.cancel()
+           cancellable = nil
+       }
 }
 
 #Preview {

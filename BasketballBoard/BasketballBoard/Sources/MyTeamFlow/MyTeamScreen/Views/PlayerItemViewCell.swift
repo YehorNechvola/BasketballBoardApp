@@ -16,7 +16,7 @@ struct PlayerItemViewCell: View {
             Image(systemName: "person.circle")
                 .resizable()
                 .frame(width: 30, height: 30)
-                .foregroundStyle(.placeholder)
+                .foregroundStyle(.gray)
                 
             Text(player.name + " " + player.surname)
             

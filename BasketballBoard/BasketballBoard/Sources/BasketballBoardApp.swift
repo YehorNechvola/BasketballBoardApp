@@ -40,11 +40,12 @@ struct BasketballBoardApp: App {
                         Image(systemName: "gearshape.fill")
                         Text("Preferences")
                     }
+                    
             }
+            .tint(.black)
             .onAppear() {
                 UITabBar.appearance().backgroundColor = .brown.withAlphaComponent(0.5)
             }
-//            .tint(.black)
         }
     }
 }

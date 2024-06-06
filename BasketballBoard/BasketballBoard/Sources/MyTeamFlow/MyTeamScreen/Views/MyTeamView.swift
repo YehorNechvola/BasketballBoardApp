@@ -17,10 +17,8 @@ struct MyTeamView: View {
                 Color(.brown.withAlphaComponent(0.3))
                     .ignoresSafeArea()
                 
-                VStack(spacing: 20) {
                     PlayersListView()
-                    Spacer()
-                }
+
                 .navigationTitle(viewModel.currentTeam?.name ?? "My team")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarBackground(.visible, for: .navigationBar)
@@ -30,7 +28,17 @@ struct MyTeamView: View {
                         Button {
                             
                         } label: {
-                            Text("edit")
+                            Image(systemName: "person.fill.badge.plus")
+                                .foregroundStyle(.black)
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "pencil")
+                                .foregroundStyle(.black)
                         }
                     }
                 }
