@@ -67,8 +67,8 @@ final class MyTeamViewModel: ObservableObject {
     }
     
     func movePlayerToOrFromBench(_ player: Player) {
-        guard let indexToMove = currentTeam?.players.firstIndex(where: {$0 == player}) else { return }
-        guard let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
+        guard let indexToMove = currentTeam?.players.firstIndex(where: {$0 == player}),
+              let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
         
         if player.isStartingPlayer {
             currentTeamPlayers?[indexToMove].isStartingPlayer.toggle()
@@ -86,7 +86,7 @@ final class MyTeamViewModel: ObservableObject {
     }
     
     func addNewPlayer() { }
-        func addNewTeam(name: String) { }
+    func addNewTeam(name: String) { }
     func editTeam() { }
 }
 

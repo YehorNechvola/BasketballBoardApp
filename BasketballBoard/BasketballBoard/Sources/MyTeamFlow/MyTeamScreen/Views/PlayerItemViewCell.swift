@@ -18,17 +18,20 @@ struct PlayerItemViewCell: View {
                 .frame(width: 30, height: 30)
                 .foregroundStyle(.gray)
                 
+            
             Text(player.name + " " + player.surname)
+            
+            Text("\(player.position.rawValue)")
             
             Spacer()
             
-            Text("\(player.position.rawValue)")
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.gray)
         }
     }
 }
 
 #Preview {
-//    @State var player = Player(name: "Test", surname: "Test")
     
     return PlayerItemViewCell(player: Player(name: "test", surname: "test", position: Player.PlayerPosition.center))
 }
