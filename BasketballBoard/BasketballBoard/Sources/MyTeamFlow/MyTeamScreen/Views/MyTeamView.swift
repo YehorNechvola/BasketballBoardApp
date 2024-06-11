@@ -31,15 +31,8 @@ struct MyTeamView: View {
                             Image(systemName: "person.fill.badge.plus")
                                 .foregroundStyle(.black)
                         }
-                    }
-                    
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "pencil")
-                                .foregroundStyle(.black)
-                        }
+                        .disabled(viewModel.myTeams.isEmpty)
+                        .opacity(viewModel.myTeams.isEmpty ? 0.5 : 1.0)
                     }
                 }
             }

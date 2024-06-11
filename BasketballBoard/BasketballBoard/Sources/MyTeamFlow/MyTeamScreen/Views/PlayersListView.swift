@@ -35,9 +35,10 @@ struct PlayersListView: View {
                     .scrollContentBackground(.hidden)
                 }
                 
-                if viewModel.currentTeamPlayers.isEmpty {
-                    Text("Create new team or add players to current team")
-                        .foregroundStyle(.gray)
+                if viewModel.myTeams.isEmpty {
+                    showNonTeamPlaceholder()
+                } else if viewModel.startingPlayers.isEmpty && viewModel.benchPlayers.isEmpty {
+                    showEmptyTeamPlaceholder()
                 }
                 
                 showStartingLinupMessage(proxy: proxy)
@@ -146,6 +147,26 @@ private extension PlayersListView {
             
         }
         .tint(player.isStartingPlayer ? .yellow : .green)
+    }
+    
+    func showNonTeamPlaceholder() -> some View {
+        VStack {
+            Text("Create new team for adding players")
+                .foregroundStyle(.gray)
+            Button {
+                
+            } label: {
+                Text("+new team")
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                    .background(.orange)
+                    .clipShape(RoundedRectangle(cornerRadius: 10), style: FillStyle())
+            }
+        }
+    }
+    
+    func showEmptyTeamPlaceholder() -> some View {
+        Text("Add players to current team")
+            .foregroundStyle(.gray)
     }
     
     func showStartingLinupMessage(proxy: GeometryProxy) -> some View {

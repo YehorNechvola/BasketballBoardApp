@@ -20,27 +20,25 @@ final class MyTeamViewModel: ObservableObject {
     
     //MARK: - Properties
     @Published var myTeams: [Team] = []
-    @Published var currentTeam: Team?
-    @Published var currentTeamPlayers: [Player] = []
+    var currentTeam: Team?
+    var currentTeamPlayers: [Player]?
     var playerToDelete: Player?
     
     var shouldShowMessage = false
     
     var startingPlayers: [Player] {
-        currentTeamPlayers.filter { $0.isStartingPlayer }
-            .sorted{ $0.position.rawValue < $1.position.rawValue }
+        currentTeamPlayers?.filter { $0.isStartingPlayer }
+            .sorted{ $0.position.rawValue < $1.position.rawValue } ?? []
     }
     
     var benchPlayers: [Player] {
-        currentTeamPlayers.filter { !$0.isStartingPlayer }
-            .sorted{ $0.position.rawValue < $1.position.rawValue }
+        currentTeamPlayers?.filter { !$0.isStartingPlayer }
+            .sorted{ $0.position.rawValue < $1.position.rawValue } ?? []
     }
     
     var isEnableAddPlayersToStart: Bool {
         startingPlayers.count < 5
     }
-    
-    
     
     //MARK: - Init
     init() {
@@ -59,7 +57,7 @@ final class MyTeamViewModel: ObservableObject {
         guard let indexToRemove = currentTeam?.players.firstIndex(where: {$0 == player}) else { return }
         guard let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
         
-        currentTeamPlayers.remove(at: indexToRemove)
+        currentTeamPlayers?.remove(at: indexToRemove)
         currentTeam?.players.remove(at: indexToRemove)
         myTeams[indexOfTeam].players.remove(at: indexToRemove)
     }
@@ -73,7 +71,7 @@ final class MyTeamViewModel: ObservableObject {
         guard let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
         
         if player.isStartingPlayer {
-            currentTeamPlayers[indexToMove].isStartingPlayer.toggle()
+            currentTeamPlayers?[indexToMove].isStartingPlayer.toggle()
             currentTeam?.players[indexToMove].isStartingPlayer.toggle()
             myTeams[indexOfTeam].players[indexToMove].isStartingPlayer.toggle()
         } else {
@@ -81,7 +79,7 @@ final class MyTeamViewModel: ObservableObject {
                 shouldShowMessage = true
                 return
             }
-            currentTeamPlayers[indexToMove].isStartingPlayer.toggle()
+            currentTeamPlayers?[indexToMove].isStartingPlayer.toggle()
             currentTeam?.players[indexToMove].isStartingPlayer.toggle()
             myTeams[indexOfTeam].players[indexToMove].isStartingPlayer.toggle()
         }
