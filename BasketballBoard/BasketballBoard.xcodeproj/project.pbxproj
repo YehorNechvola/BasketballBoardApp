@@ -139,8 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				A62638412C0DC6F600FB6BE2 /* MyTeamScreen */,
-				A62638422C0DC72100FB6BE2 /* AddPlayerScreen */,
-				A62638432C0DC73400FB6BE2 /* PlayerProfileScreen */,
 			);
 			path = MyTeamFlow;
 			sourceTree = "<group>";
@@ -153,20 +151,6 @@
 				A626384C2C0DD86800FB6BE2 /* ViewModel */,
 			);
 			path = MyTeamScreen;
-			sourceTree = "<group>";
-		};
-		A62638422C0DC72100FB6BE2 /* AddPlayerScreen */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AddPlayerScreen;
-			sourceTree = "<group>";
-		};
-		A62638432C0DC73400FB6BE2 /* PlayerProfileScreen */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PlayerProfileScreen;
 			sourceTree = "<group>";
 		};
 		A626384A2C0DD83400FB6BE2 /* Views */ = {
