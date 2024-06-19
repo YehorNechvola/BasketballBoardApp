@@ -34,6 +34,8 @@ struct Team: Equatable, Identifiable {
     
     var id: String { name }
     var name: String
+    var description: String?
+    var teamPhotoData: Data?
     var players: [Player] = [Player]()
     
     mutating func removePlayer(_ player: Player) {

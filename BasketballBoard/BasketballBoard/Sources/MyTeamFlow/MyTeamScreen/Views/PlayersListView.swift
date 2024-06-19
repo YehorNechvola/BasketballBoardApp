@@ -154,7 +154,7 @@ private extension PlayersListView {
             Text("Create new team for adding players")
                 .foregroundStyle(.gray)
             Button {
-                
+                viewModel.createNewTeamPressed.toggle()
             } label: {
                 Text("+new team")
                     .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A60A5F222C21B55900AA040D /* CreateNewTeamScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60A5F212C21B55900AA040D /* CreateNewTeamScreen.swift */; };
 		A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */; };
 		A60CD4832C07808C00CC8BC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60CD4822C07808C00CC8BC1 /* Assets.xcassets */; };
 		A60CD4872C07808C00CC8BC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60CD4862C07808C00CC8BC1 /* Preview Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A60A5F212C21B55900AA040D /* CreateNewTeamScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewTeamScreen.swift; sourceTree = "<group>"; };
 		A60CD47B2C07808900CC8BC1 /* BasketballBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasketballBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketballBoardApp.swift; sourceTree = "<group>"; };
 		A60CD4822C07808C00CC8BC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A60A5F202C21B52C00AA040D /* CreateNewTeamScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A60A5F212C21B55900AA040D /* CreateNewTeamScreen.swift */,
+			);
+			path = CreateNewTeamScreen;
+			sourceTree = "<group>";
+		};
 		A60CD4722C07808900CC8BC1 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +148,7 @@
 		A62638402C0DC6E100FB6BE2 /* MyTeamFlow */ = {
 			isa = PBXGroup;
 			children = (
+				A60A5F202C21B52C00AA040D /* CreateNewTeamScreen */,
 				A62638412C0DC6F600FB6BE2 /* MyTeamScreen */,
 			);
 			path = MyTeamFlow;
@@ -285,6 +296,7 @@
 				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
 				A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */,
 				A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */,
+				A60A5F222C21B55900AA040D /* CreateNewTeamScreen.swift in Sources */,
 				A62638452C0DC78800FB6BE2 /* MyTeamView.swift in Sources */,
 				A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */,
 				A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */,

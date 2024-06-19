@@ -20,7 +20,10 @@ final class MyTeamViewModel: ObservableObject {
     
     //MARK: - Properties
     @Published var myTeams: [Team] = []
-    var currentTeam: Team?
+    @Published var createNewTeamPressed = false
+    var currentTeam: Team? {
+        myTeams.first
+    }
     var currentTeamPlayers: [Player]?
     var playerToDelete: Player?
     
@@ -43,13 +46,11 @@ final class MyTeamViewModel: ObservableObject {
     //MARK: - Init
     init() {
         myTeams = fetchTeams()
-        currentTeam = myTeams.first
         currentTeamPlayers = currentTeam?.players ?? []
     }
     
     //MARK: - Protocol methods
     func updateCurrentTeam(_ team: Team) {
-        currentTeam = team
         currentTeamPlayers = team.players
     }
     
@@ -58,7 +59,6 @@ final class MyTeamViewModel: ObservableObject {
         guard let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
         
         currentTeamPlayers?.remove(at: indexToRemove)
-        currentTeam?.players.remove(at: indexToRemove)
         myTeams[indexOfTeam].players.remove(at: indexToRemove)
     }
     
@@ -72,7 +72,6 @@ final class MyTeamViewModel: ObservableObject {
         
         if player.isStartingPlayer {
             currentTeamPlayers?[indexToMove].isStartingPlayer.toggle()
-            currentTeam?.players[indexToMove].isStartingPlayer.toggle()
             myTeams[indexOfTeam].players[indexToMove].isStartingPlayer.toggle()
         } else {
             guard isEnableAddPlayersToStart else {
@@ -80,13 +79,16 @@ final class MyTeamViewModel: ObservableObject {
                 return
             }
             currentTeamPlayers?[indexToMove].isStartingPlayer.toggle()
-            currentTeam?.players[indexToMove].isStartingPlayer.toggle()
             myTeams[indexOfTeam].players[indexToMove].isStartingPlayer.toggle()
         }
     }
     
     func addNewPlayer() { }
-    func addNewTeam(name: String) { }
+    func addNewTeam(name: String, description: String? = nil, imageData: Data? = nil) {
+        let newTeam = Team(name: name, description: description, teamPhotoData: imageData)
+        myTeams.append(newTeam)
+    }
+    
     func editTeam() { }
 }
 
@@ -123,6 +125,6 @@ private extension MyTeamViewModel {
 //        let team12 = Team(name: "Twelve team")
 //        let team13 = Team(name: "Thirtenn team")
         
-        return [team4]
+        return []
     }
 }
