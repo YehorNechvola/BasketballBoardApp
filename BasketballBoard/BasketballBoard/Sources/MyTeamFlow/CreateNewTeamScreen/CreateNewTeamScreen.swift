@@ -5,7 +5,6 @@
 //  Created by Eva on 18.06.2024.
 //
 
-import PhotosUI
 import SwiftUI
 
 struct CreateNewTeamScreen: View {
@@ -13,9 +12,9 @@ struct CreateNewTeamScreen: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: MyTeamViewModel
     @State private var teamNameText: String = ""
-    @State private var desccriptionText: String = ""
-    @State private var photoPickerItem: PhotosPickerItem?
-    @State var teamImage: UIImage?
+    @State private var descriptionText: String = ""
+    @State private var presentPickerPhotoView = false
+    @State private var teamImage: UIImage?
     
     private let descriptionRowId = "Description"
     
@@ -25,8 +24,11 @@ struct CreateNewTeamScreen: View {
                 List {
                     Section {
                         HStack(spacing: 20) {
-                            PhotosPicker(selection: $photoPickerItem, matching: .images) {
-                                Image(systemName: "camera.circle")
+                            Button {
+                                presentPickerPhotoView.toggle()
+                            } label: {
+                                
+                                Image(uiImage: teamImage ?? UIImage(systemName: "camera.circle")!)
                                     .resizable()
                                     .frame(width: 50, height: 50)
                                     .foregroundStyle(.blue)
@@ -37,13 +39,12 @@ struct CreateNewTeamScreen: View {
                     }
                     
                     Section {
-                        TextField("Description", text: $desccriptionText, axis: .vertical)
+                        TextField("Description", text: $descriptionText, axis: .vertical)
                             .id(descriptionRowId)
-                            .onChange(of: desccriptionText) {
+                            .onChange(of: descriptionText) {
                                 proxy.scrollTo(descriptionRowId, anchor: .bottom)
                             }
                     }
-                   
                 }
             }
             
@@ -59,16 +60,17 @@ struct CreateNewTeamScreen: View {
                     }
                     .disabled(teamNameText.isEmpty)
                 }
-            }
-            .onChange(of: photoPickerItem) { _, _ in
-                Task {
-                    if let photoPickerItem = photoPickerItem,
-                       let data = try? await photoPickerItem.loadTransferable(type: Data.self) {
-                        if let image = UIImage(data: data) {
-                            teamImage = image
-                        }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("cancel")
                     }
                 }
+            }
+            .fullScreenCover(isPresented: $presentPickerPhotoView) {
+                PickPhotoOrCameraView(croppedTeamImage: $teamImage)
             }
         }
     }

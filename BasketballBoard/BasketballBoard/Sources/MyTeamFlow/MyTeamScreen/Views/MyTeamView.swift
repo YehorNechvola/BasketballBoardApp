@@ -37,7 +37,7 @@ struct MyTeamView: View {
                     }
             }
             
-            .sheet(isPresented: $viewModel.createNewTeamPressed) {
+            .fullScreenCover(isPresented: $viewModel.createNewTeamPressed) {
                 CreateNewTeamScreen()
             }
         }
