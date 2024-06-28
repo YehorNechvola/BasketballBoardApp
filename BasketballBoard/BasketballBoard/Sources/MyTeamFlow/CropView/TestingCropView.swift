@@ -12,6 +12,8 @@ struct TestingCropView: View {
         CropView(image: UIImage(resource: .ball),
                  maskShape: .circle,
                  configuration: SwiftyCropConfiguration()) { _ in
+        } onCancelCompletion: {
+            
         }
     }
 }
