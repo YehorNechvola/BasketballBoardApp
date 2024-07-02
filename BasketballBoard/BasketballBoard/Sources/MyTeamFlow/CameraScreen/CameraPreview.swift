@@ -14,7 +14,7 @@ struct CameraPreview: UIViewRepresentable {
     @ObservedObject var cameraManager: CameraManager
     
     func makeUIView(context: Context) -> UIView {
-        let view = UIView(frame: UIScreen.main.bounds)
+        let view = UIView(frame: self.frame)
         cameraManager.previewLayer = AVCaptureVideoPreviewLayer(session: cameraManager.captureSession)
         cameraManager.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraManager.previewLayer.frame = self.frame

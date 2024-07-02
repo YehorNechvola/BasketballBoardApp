@@ -19,23 +19,38 @@ struct CameraView: View {
                 let frame = CGRect(origin: .zero, size: CGSize(width: proxy.size.width, height: proxy.size.width * 1.333))
                 
                 CameraPreview(frame: frame, cameraManager: cameraManager)
-                    .background(.black)
+                    .offset(y: 50)
             }
+            
             
             GeometryReader { proxy in
                 BlurView(style: .systemUltraThinMaterialDark)
                     .opacity(shouldShowBlurView ? 1 : 0)
                     .frame(height: proxy.size.width * 1.333)
+                    .offset(y: 50)
             }
+            
             
             GeometryReader { proxy in
                 Color(.black.withAlphaComponent(0.8))
                     .opacity(shouldApplyPhotoClick ? 1 : 0)
                     .frame(height: proxy.size.width * 1.333)
+                    .offset(y: 50)
             }
             
-            VStack {
+            VStack(spacing: 30) {
                 Spacer()
+                
+                Button {
+                    cameraManager.toggleFlash()
+                } label: {
+                    Image(systemName: cameraManager.cameraTourchState == .on ? "bolt.circle" : "bolt.slash.circle" )
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                        .tint(.white)
+                        .foregroundStyle(cameraManager.cameraTourchState == .on ? Color.yellow : Color.white.opacity(0.8))
+                }
                 
                 HStack  {
                     Button {
@@ -46,7 +61,6 @@ struct CameraView: View {
                             .foregroundStyle(.white)
                             .scaledToFit()
                             .frame(width: 35, height: 35)
-                            
                     }
                     .offset(x: 30)
                     
@@ -57,6 +71,7 @@ struct CameraView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             shouldApplyPhotoClick.toggle()
                         }
+                        cameraManager.capturePhoto()
                     } label: {
                         ZStack {
                             Circle()
@@ -100,6 +115,7 @@ struct CameraView: View {
                                  trigger: shouldShowBlurView) { $1 == true }
             }
         }
+        .background(.black)
         .onAppear {
             cameraManager.setupCamera()
         }
