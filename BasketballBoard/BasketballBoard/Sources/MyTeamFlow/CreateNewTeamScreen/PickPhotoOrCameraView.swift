@@ -12,6 +12,7 @@ struct PickPhotoOrCameraView: View {
     @Environment(\.dismiss) var dismiss
     @State private var photoPickerItem: PhotosPickerItem?
     @State private var shouldShowCropView = false
+    @State private var shouldShowCameraView = false
     @State private var pickedTeamImage: UIImage?
     @Binding var croppedTeamImage: UIImage?
     
@@ -40,7 +41,7 @@ struct PickPhotoOrCameraView: View {
                     
                     HStack(spacing: 20) {
                         Button {
-                            
+                            shouldShowCameraView.toggle()
                         } label: {
                             Image(systemName: "camera")
                                 .resizable()
@@ -123,10 +124,9 @@ struct PickPhotoOrCameraView: View {
                     photoPickerItem = nil
                 }
             }
+            .fullScreenCover(isPresented: $shouldShowCameraView) {
+                CameraView()
+            }
         }
     }
 }
-
-//#Preview {
-//    PickPhotoOrCameraView()
-//}
