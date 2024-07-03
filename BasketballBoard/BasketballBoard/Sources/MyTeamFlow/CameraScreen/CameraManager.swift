@@ -109,7 +109,7 @@ extension CameraManager: AVCapturePhotoCaptureDelegate {
         
         if let imageData = photo.fileDataRepresentation() {
             if let image = UIImage(data: imageData) {
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+//                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             }
         }
     }

@@ -16,12 +16,11 @@ struct CameraView: View {
     var body: some View {
         ZStack {
             GeometryReader { proxy in
-                let frame = CGRect(origin: .zero, size: CGSize(width: proxy.size.width, height: proxy.size.width * 1.333))
+                let frame = CGRect(origin: CGPoint(x: 0, y: 50),
+                                   size: CGSize(width: proxy.size.width, height: proxy.size.width * 1.333))
                 
                 CameraPreview(frame: frame, cameraManager: cameraManager)
-                    .offset(y: 50)
             }
-            
             
             GeometryReader { proxy in
                 BlurView(style: .systemUltraThinMaterialDark)
