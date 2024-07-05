@@ -6,50 +6,83 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CreateNewTeamScreen: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: MyTeamViewModel
+    @State private var photoPickerItem: PhotosPickerItem?
+    @State private var shouldShowCropView = false
     @State private var teamNameText: String = ""
-    @State private var descriptionText: String = ""
-    @State private var presentPickerPhotoView = false
     @State private var teamImage: UIImage?
-    
-    private let descriptionRowId = "Description"
+    @State var croppedTeamImage: UIImage?
     
     var body: some View {
-        NavigationStack{
-            ScrollViewReader { proxy in
-                List {
-                    Section {
-                        HStack(spacing: 20) {
-                            Button {
-                                presentPickerPhotoView.toggle()
-                            } label: {
-                                
-                                Image(uiImage: teamImage ?? UIImage(systemName: "camera.circle")!)
+        NavigationStack {
+            List {
+                Section {
+                    HStack {
+                        Spacer()
+                        
+                        VStack(alignment: .center) {
+                            PhotosPicker(selection: $photoPickerItem, matching: .images) {
+                                Image(uiImage: croppedTeamImage ?? UIImage(resource: .teamPlaceholder))
                                     .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundStyle(.blue)
+                                    .scaledToFit()
+                                    .frame(width: 200, height: 200)
+                                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                                    .background(Color.white)
+                                    .clipShape(Circle())
                             }
                             
-                            TextField("Name of team", text: $teamNameText)
+                            Text("add photo")
                         }
+                        Spacer()
                     }
-                    
-                    Section {
-                        TextField("Description", text: $descriptionText, axis: .vertical)
-                            .id(descriptionRowId)
-                            .onChange(of: descriptionText) {
-                                proxy.scrollTo(descriptionRowId, anchor: .bottom)
-                            }
+                }
+                .listRowBackground(Color.clear)
+                
+                Section {
+                    TextField("Name of team", text: $teamNameText)
+                }
+            }
+            .listSectionSpacing(15)
+            
+            .scrollDismissesKeyboard(.interactively)
+            .ignoresSafeArea(.keyboard)
+            
+            .navigationTitle("New team")
+            .navigationBarTitleDisplayMode(.inline)
+            .onChange(of: photoPickerItem) { _, _ in
+                Task {
+                    if let photoPickerItem = photoPickerItem,
+                       let data = try? await photoPickerItem.loadTransferable(type: Data.self) {
+                        if let image = UIImage(data: data) {
+                            teamImage = image
+                        }
                     }
                 }
             }
             
-            .navigationTitle("New team")
-            .navigationBarTitleDisplayMode(.inline)
+            .onChange(of: teamImage) {
+                shouldShowCropView = teamImage != nil
+                photoPickerItem = nil
+            }
+            
+            .fullScreenCover(isPresented: $shouldShowCropView) {
+                CropView(image: teamImage!,
+                         maskShape: .circle,
+                         configuration: SwiftyCropConfiguration()) { croppedImage in
+                    croppedTeamImage = croppedImage
+                    shouldShowCropView.toggle()
+                } onCancelCompletion: {
+                    shouldShowCropView.toggle()
+                }
+                .toolbar(.hidden)
+                .transition(.opacity)
+            }
+            
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -69,9 +102,6 @@ struct CreateNewTeamScreen: View {
                     }
                 }
             }
-            .fullScreenCover(isPresented: $presentPickerPhotoView) {
-                PickPhotoOrCameraView(croppedTeamImage: $teamImage)
-            }
         }
     }
 }
@@ -84,9 +114,13 @@ private extension CreateNewTeamScreen {
         let size = textView.sizeThatFits(CGSize(width: width, height: CGFloat.infinity))
         return size.height
     }
+    
+    func endEditing() {
+        UIApplication.shared.endEditing()
+    }
 }
 
-#Preview {
-    CreateNewTeamScreen()
-        .environmentObject(MyTeamViewModel())
-}
+//#Preview {
+//    CreateNewTeamScreen()
+//        .environmentObject(MyTeamViewModel())
+//}

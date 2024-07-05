@@ -73,26 +73,11 @@ struct CropView: View {
                 viewModel.lastOffset = viewModel.offset
             }
 
-//        let rotationGesture = RotationGesture()
-//            .onChanged { value in
-//                viewModel.angle = value
-//            }
-//            .onEnded { _ in
-//                viewModel.lastAngle = viewModel.angle
-//            }
-
         VStack {
-//            Text("Crop photo")
-//                .font(.system(size: 16, weight: .regular))
-//                .foregroundColor(.white)
-//                .padding(.top, 30)
-//                .zIndex(1)
-
             ZStack {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-//                    .rotationEffect(viewModel.angle)
                     .scaleEffect(viewModel.scale)
                     .offset(viewModel.offset)
                     .opacity(0.5)
@@ -108,7 +93,6 @@ struct CropView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-//                    .rotationEffect(viewModel.angle)
                     .scaleEffect(viewModel.scale)
                     .offset(viewModel.offset)
                     .mask(
@@ -119,13 +103,15 @@ struct CropView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .simultaneousGesture(magnificationGesture)
             .simultaneousGesture(dragGesture)
-//            .simultaneousGesture(configuration.rotateImage ? rotationGesture : nil)
 
             HStack {
                 Button {
                     onCancelCompletion()
                 } label: {
-                    Text("cancel")
+                    Image(systemName: "xmark.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
                 }
                 .foregroundColor(.white)
 
@@ -134,7 +120,10 @@ struct CropView: View {
                 Button {
                     onComplete(cropImage())
                 } label: {
-                    Text("save")
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
                 }
                 .foregroundColor(.white)
             }
