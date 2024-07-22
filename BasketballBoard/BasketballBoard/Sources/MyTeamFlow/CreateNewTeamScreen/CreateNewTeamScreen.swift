@@ -86,7 +86,7 @@ struct CreateNewTeamScreen: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        viewModel.addNewTeam(name: teamNameText)
+                        viewModel.addNewTeam(name: teamNameText, imageData: croppedTeamImage?.pngData())
                         dismiss()
                     } label: {
                         Text("save")
@@ -120,7 +120,7 @@ private extension CreateNewTeamScreen {
     }
 }
 
-//#Preview {
-//    CreateNewTeamScreen()
-//        .environmentObject(MyTeamViewModel())
-//}
+#Preview {
+    CreateNewTeamScreen()
+        .environmentObject(MyTeamViewModel())
+}

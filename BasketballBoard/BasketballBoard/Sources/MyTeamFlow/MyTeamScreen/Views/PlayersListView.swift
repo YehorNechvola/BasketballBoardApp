@@ -71,37 +71,19 @@ struct PlayersListView: View {
 private extension PlayersListView {
     func createTeamSection() -> some View {
         Section {
-            HStack(spacing: 20) {
-                Image(systemName: "list.bullet.circle.fill")
+            HStack(spacing: 10) {
+                Image(uiImage: fetchImageFrom(data: viewModel.currentTeam?.teamPhotoData) ?? UIImage(resource: .playersPlaceholder))
                     .resizable()
-                    .frame(width: 30, height: 30)
-                    .foregroundStyle(.gray)
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
                 
                 Text(viewModel.currentTeam?.name ?? "")
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "")
-                }
-                .buttonStyle(.borderless)
-                 
-                
+                    .frame(maxHeight: 50, alignment: .leading)
                 Spacer()
                 
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Text("switch")
-                            .foregroundStyle(.gray)
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(.gray)
-                    }
-                }
-                .buttonStyle(.borderless)
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.gray)
             }
-            
         } header: {
             Text("Current team")
         }
@@ -200,6 +182,16 @@ private extension PlayersListView {
            cancellable?.cancel()
            cancellable = nil
        }
+    
+    func fetchImageFrom(data: Data?) -> UIImage? {
+        var image: UIImage?
+        
+        if let data = data {
+            image = UIImage(data: data)
+        }
+        
+        return image
+    }
 }
 
 #Preview {

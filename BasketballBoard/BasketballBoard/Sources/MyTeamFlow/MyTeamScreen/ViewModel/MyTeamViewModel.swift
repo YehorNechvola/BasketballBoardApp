@@ -84,8 +84,8 @@ final class MyTeamViewModel: ObservableObject {
     }
     
     func addNewPlayer() { }
-    func addNewTeam(name: String, description: String? = nil, imageData: Data? = nil) {
-        let newTeam = Team(name: name, description: description, teamPhotoData: imageData)
+    func addNewTeam(name: String, imageData: Data? = nil) {
+        let newTeam = Team(name: name, teamPhotoData: imageData)
         myTeams.append(newTeam)
     }
     
