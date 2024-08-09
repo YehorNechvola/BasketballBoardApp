@@ -114,7 +114,7 @@ private extension MyTeamViewModel {
 //        var team1 = Team(name: "First team", players: players1)
 //        var team2 = Team(name: "Second", players: players2)
 //        let team3 = Team(name: "Third team")
-        let team4 = Team(name: "Four team", players: players1 + players2)
+        let team4 = Team(name: "Dream team", players: players1 + players2)
 //        let team5 = Team(name: "Five team")
 //        var team6 = Team(name: "Six team", players: players2 + players1)
 //        var team7 = Team(name: "Seven team")
@@ -125,6 +125,6 @@ private extension MyTeamViewModel {
 //        let team12 = Team(name: "Twelve team")
 //        let team13 = Team(name: "Thirtenn team")
         
-        return []
+        return /*[team4]*/ []
     }
 }

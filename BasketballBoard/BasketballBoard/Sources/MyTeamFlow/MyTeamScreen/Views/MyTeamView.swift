@@ -10,6 +10,12 @@ import SwiftUI
 struct MyTeamView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
     @Environment(\.dismiss) var dismiss
+    private var currentTeamPhoto: UIImage? {
+        guard let photoData = viewModel.currentTeam?.teamPhotoData else {
+            return nil
+        }
+        return UIImage(data: photoData)
+    }
     
     var body: some View {
         NavigationStack {
@@ -19,11 +25,31 @@ struct MyTeamView: View {
                 
                 PlayersListView()
                 
-                    .navigationTitle(viewModel.currentTeam?.name ?? "My team")
-                    .navigationBarTitleDisplayMode(.inline)
                     .toolbarBackground(.visible, for: .navigationBar)
                     .toolbarBackground(.brown.opacity(0.5), for: .navigationBar)
                     .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                
+                            } label: {
+                                HStack {
+                                    Image(uiImage: currentTeamPhoto ?? UIImage(resource: .ballIcon))
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 35, height: 35)
+                                        .foregroundStyle(.black)
+                                        
+                                    Text(viewModel.currentTeam?.name ?? "Current team")
+                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
+                                    Image(systemName: "arrowtriangle.down.fill")
+                                        .resizable()
+                                        .frame(width: 10, height: 10)
+                                }
+                            }
+                            .disabled(viewModel.myTeams.isEmpty)
+                            .opacity(viewModel.myTeams.isEmpty ? 0 : 1.0)
+                        }
+                        
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
                                 
@@ -43,9 +69,8 @@ struct MyTeamView: View {
         }
     }
 }
-    
-    #Preview {
-        MyTeamView()
-            .environmentObject(MyTeamViewModel())
-    }
 
+#Preview {
+    MyTeamView()
+        .environmentObject(MyTeamViewModel())
+}

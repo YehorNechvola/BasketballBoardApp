@@ -65,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				A60A5F212C21B55900AA040D /* CreateNewTeamScreen.swift */,
+				A69C123D2C255A4000CBE95E /* CropView.swift */,
 			);
 			path = CreateNewTeamScreen;
 			sourceTree = "<group>";
@@ -155,7 +156,6 @@
 			children = (
 				A62638412C0DC6F600FB6BE2 /* MyTeamScreen */,
 				A60A5F202C21B52C00AA040D /* CreateNewTeamScreen */,
-				A69C123C2C25587200CBE95E /* CropView */,
 			);
 			path = MyTeamFlow;
 			sourceTree = "<group>";
@@ -221,14 +221,6 @@
 				A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		A69C123C2C25587200CBE95E /* CropView */ = {
-			isa = PBXGroup;
-			children = (
-				A69C123D2C255A4000CBE95E /* CropView.swift */,
-			);
-			path = CropView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

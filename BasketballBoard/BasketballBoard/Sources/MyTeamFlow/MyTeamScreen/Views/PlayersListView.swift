@@ -19,10 +19,6 @@ struct PlayersListView: View {
             ZStack {
                 VStack {
                     List {
-                        if !viewModel.myTeams.isEmpty {
-                            createTeamSection()
-                        }
-                        
                         if !viewModel.startingPlayers.isEmpty {
                             createPlayerSection(players: viewModel.startingPlayers, header: "Starting players")
                         }
@@ -69,26 +65,6 @@ struct PlayersListView: View {
 
 //MARK: - Private methods
 private extension PlayersListView {
-    func createTeamSection() -> some View {
-        Section {
-            HStack(spacing: 10) {
-                Image(uiImage: fetchImageFrom(data: viewModel.currentTeam?.teamPhotoData) ?? UIImage(resource: .playersPlaceholder))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 40)
-                
-                Text(viewModel.currentTeam?.name ?? "")
-                    .frame(maxHeight: 50, alignment: .leading)
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.gray)
-            }
-        } header: {
-            Text("Current team")
-        }
-    }
-    
     func createPlayerSection(players: [Player], header: String) -> some View {
         Section {
             ForEach(players, id: \.name) { player in
@@ -182,16 +158,6 @@ private extension PlayersListView {
            cancellable?.cancel()
            cancellable = nil
        }
-    
-    func fetchImageFrom(data: Data?) -> UIImage? {
-        var image: UIImage?
-        
-        if let data = data {
-            image = UIImage(data: data)
-        }
-        
-        return image
-    }
 }
 
 #Preview {

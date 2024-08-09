@@ -13,12 +13,14 @@ struct PlayerItemViewCell: View {
     var body: some View {
         HStack(spacing: 20) {
             
-            Image(systemName: "person.circle")
+            Image(.playerPlaceholder)
                 .resizable()
-                .frame(width: 30, height: 30)
-                .foregroundStyle(.gray)
+                .scaledToFit()
+                .frame(width: 23, height: 23)
+                .padding(EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6))
+                .background(Color.orange)
+                .clipShape(Circle())
                 
-            
             Text(player.name + " " + player.surname)
             
             Text("\(player.position.rawValue)")
