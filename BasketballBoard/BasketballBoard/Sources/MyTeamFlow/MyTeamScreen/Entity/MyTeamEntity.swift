@@ -9,12 +9,29 @@ import Foundation
 
 struct Player: Equatable {
     
-    enum PlayerPosition: Int, CaseIterable {
+    enum PlayerPosition: Int, CaseIterable, Identifiable {
+        var id: Self { self }
+        
         case pointGuard = 1
         case shootingGuard
         case smallForward
         case powerForward
         case center
+        
+        var positionToString: String {
+            switch self {
+            case .pointGuard:
+                "Point guard"
+            case .shootingGuard:
+                "Shooting guard"
+            case .smallForward:
+                "Small forward"
+            case .powerForward:
+                "Power forward"
+            case .center:
+                "Center"
+            }
+        }
     }
     
     var name: String

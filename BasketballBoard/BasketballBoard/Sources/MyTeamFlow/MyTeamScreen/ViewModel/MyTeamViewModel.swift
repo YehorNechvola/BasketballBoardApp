@@ -21,6 +21,8 @@ final class MyTeamViewModel: ObservableObject {
     //MARK: - Properties
     @Published var myTeams: [Team] = []
     @Published var createNewTeamPressed = false
+    @Published var createNewPlayerPressed = false
+    
     var currentTeam: Team? {
         myTeams.first
     }
@@ -83,10 +85,13 @@ final class MyTeamViewModel: ObservableObject {
         }
     }
     
-    func addNewPlayer() { }
     func addNewTeam(name: String, imageData: Data? = nil) {
         let newTeam = Team(name: name, teamPhotoData: imageData)
         myTeams.append(newTeam)
+    }
+    
+    func addNewPlayer() {
+        
     }
     
     func editTeam() { }

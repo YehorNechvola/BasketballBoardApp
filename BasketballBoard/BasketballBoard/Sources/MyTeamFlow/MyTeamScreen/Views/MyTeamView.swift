@@ -36,7 +36,7 @@ struct MyTeamView: View {
                                     Image(uiImage: currentTeamPhoto ?? UIImage(resource: .ballIcon))
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: 35, height: 35)
+                                        .frame(width: 30, height: 30)
                                         .foregroundStyle(.black)
                                         
                                     Text(viewModel.currentTeam?.name ?? "Current team")
@@ -52,7 +52,7 @@ struct MyTeamView: View {
                         
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
-                                
+                                viewModel.createNewPlayerPressed.toggle()
                             } label: {
                                 Image(systemName: "person.fill.badge.plus")
                                     .foregroundStyle(.black)
@@ -65,6 +65,10 @@ struct MyTeamView: View {
             
             .fullScreenCover(isPresented: $viewModel.createNewTeamPressed) {
                 CreateNewTeamScreen()
+            }
+            
+            .fullScreenCover(isPresented: $viewModel.createNewPlayerPressed) {
+                CreatePlayerView()
             }
         }
     }

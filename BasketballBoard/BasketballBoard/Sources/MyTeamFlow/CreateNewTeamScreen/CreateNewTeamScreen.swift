@@ -16,7 +16,7 @@ struct CreateNewTeamScreen: View {
     @State private var shouldShowCropView = false
     @State private var teamNameText: String = ""
     @State private var teamImage: UIImage?
-    @State var croppedTeamImage: UIImage?
+    @State private var croppedTeamImage: UIImage?
     
     var body: some View {
         NavigationStack {

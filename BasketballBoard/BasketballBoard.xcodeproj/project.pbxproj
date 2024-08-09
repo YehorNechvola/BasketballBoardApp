@@ -18,6 +18,7 @@
 		A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */; };
 		A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */; };
 		A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD4A12C0789A000CC8BC1 /* BoardView.swift */; };
+		A61935FF2C6636A700416DFB /* CreatePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61935FE2C6636A700416DFB /* CreatePlayerView.swift */; };
 		A62638452C0DC78800FB6BE2 /* MyTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638442C0DC78800FB6BE2 /* MyTeamView.swift */; };
 		A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638462C0DC7A800FB6BE2 /* MyTeamEntity.swift */; };
 		A62638492C0DC7BE00FB6BE2 /* MyTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */; };
@@ -41,6 +42,7 @@
 		A60CD49D2C07893700CC8BC1 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		A60CD49F2C07896000CC8BC1 /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 		A60CD4A12C0789A000CC8BC1 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		A61935FE2C6636A700416DFB /* CreatePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlayerView.swift; sourceTree = "<group>"; };
 		A62638442C0DC78800FB6BE2 /* MyTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamView.swift; sourceTree = "<group>"; };
 		A62638462C0DC7A800FB6BE2 /* MyTeamEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamEntity.swift; sourceTree = "<group>"; };
 		A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamViewModel.swift; sourceTree = "<group>"; };
@@ -151,11 +153,20 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		A61935FD2C66366700416DFB /* CreatePlayerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A61935FE2C6636A700416DFB /* CreatePlayerView.swift */,
+			);
+			path = CreatePlayerScreen;
+			sourceTree = "<group>";
+		};
 		A62638402C0DC6E100FB6BE2 /* MyTeamFlow */ = {
 			isa = PBXGroup;
 			children = (
 				A62638412C0DC6F600FB6BE2 /* MyTeamScreen */,
 				A60A5F202C21B52C00AA040D /* CreateNewTeamScreen */,
+				A61935FD2C66366700416DFB /* CreatePlayerScreen */,
 			);
 			path = MyTeamFlow;
 			sourceTree = "<group>";
@@ -301,6 +312,7 @@
 				A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */,
 				A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */,
 				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
+				A61935FF2C6636A700416DFB /* CreatePlayerView.swift in Sources */,
 				A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */,
 				A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */,
 				A60A5F222C21B55900AA040D /* CreateNewTeamScreen.swift in Sources */,
