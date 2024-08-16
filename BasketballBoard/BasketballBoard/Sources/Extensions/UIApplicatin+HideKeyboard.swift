@@ -1,14 +1,14 @@
 //
-//  UIAplication + ResignFirstResponder.swift
+//  UIApplicatin+HideKeyboard.swift
 //  BasketballBoard
 //
-//  Created by Eva on 04.07.2024.
+//  Created by Eva on 16.08.2024.
 //
 
 import UIKit
 
 extension UIApplication {
-    func endEditing() {
+    func dismissKeyboard() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

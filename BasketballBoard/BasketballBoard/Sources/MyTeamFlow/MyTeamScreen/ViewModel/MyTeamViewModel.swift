@@ -130,6 +130,6 @@ private extension MyTeamViewModel {
 //        let team12 = Team(name: "Twelve team")
 //        let team13 = Team(name: "Thirtenn team")
         
-        return /*[team4]*/ []
+        return [team4] /*[]*/
     }
 }

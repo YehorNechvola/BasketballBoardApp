@@ -106,20 +106,6 @@ struct CreateNewTeamScreen: View {
     }
 }
 
-private extension CreateNewTeamScreen {
-    func calculateHeight(for text: String, in width: CGFloat) -> CGFloat {
-        let textView = UITextView()
-        textView.text = text
-        textView.font = UIFont.systemFont(ofSize: 17)
-        let size = textView.sizeThatFits(CGSize(width: width, height: CGFloat.infinity))
-        return size.height
-    }
-    
-    func endEditing() {
-        UIApplication.shared.endEditing()
-    }
-}
-
 #Preview {
     CreateNewTeamScreen()
         .environmentObject(MyTeamViewModel())
