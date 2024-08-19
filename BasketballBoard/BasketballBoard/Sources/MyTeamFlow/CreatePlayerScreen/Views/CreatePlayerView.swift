@@ -12,7 +12,10 @@ import PhotosUI
 struct CreatePlayerView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
     @Environment(\.dismiss) var dismiss
-    @FocusState var isNameFocused: Bool
+    @FocusState private var isNameCellFocused: Bool
+    @FocusState private var isSurnameCellFocused: Bool
+    @FocusState private var isNotesCellFocused: Bool
+    @FocusState private var isGameNumberCellFocused: Bool
     
     @State private var shouldShowCropView = false
     @State private var photoPickerItem: PhotosPickerItem?
@@ -23,6 +26,10 @@ struct CreatePlayerView: View {
     @State private var showDatePicker = false
     @State private var selectedDateToString = "Date of birth"
     @State private var notesNext = ""
+    @State private var name: String = ""
+    @State private var surname: String = ""
+    @State private var gameNumber: String = ""
+    
     private var dateColor: UIColor {
         selectedDateToString == "Date of birth" ? .placeholderText : .black
     }
@@ -43,9 +50,6 @@ struct CreatePlayerView: View {
         }
     }
     
-    @State private var name: String = ""
-    @State private var surname: String = ""
-    
     var body: some View {
         NavigationStack {
             VStack {
@@ -57,6 +61,7 @@ struct CreatePlayerView: View {
                                 
                                 VStack(alignment: .center) {
                                     PhotosPicker(selection: $photoPickerItem, matching: .images) {
+                                    
                                         Image(uiImage: croppedPlayerImage ?? UIImage(resource: .playerPlaceholder))
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
@@ -74,7 +79,6 @@ struct CreatePlayerView: View {
                                     
                                     Text("add photo")
                                 }
-                                .id("PhotoCell")
                                 Spacer()
                             }
                         }
@@ -82,15 +86,15 @@ struct CreatePlayerView: View {
                         
                         Section {
                             TextField("Name", text: $name)
-                                .id("NameCell")
                                 .submitLabel(.done)
+                                .focused($isNameCellFocused)
                             TextField("Surname", text: $surname)
-                                .id("SurnameCell")
                                 .submitLabel(.done)
+                                .focused($isSurnameCellFocused)
                             Text(selectedDateToString)
-                                .id("DateCell")
                                 .foregroundStyle(Color(uiColor: dateColor))
                                 .onTapGesture {
+                                    unfocusAllTextFields()
                                     showDatePicker.toggle()
                                 }
                             
@@ -99,23 +103,55 @@ struct CreatePlayerView: View {
                                     Text(position.positionToString).tag(position)
                                 }
                             }
-                            .id("PositionCell")
                             .pickerStyle(MenuPickerStyle())
                             .foregroundStyle(.black)
+                            .onTapGesture {
+                                unfocusAllTextFields()
+                            }
+                            
+                            TextField("Game number", text: $gameNumber)
+                                .id("GameNumberCell")
+                                .submitLabel(.done)
+                                .focused($isGameNumberCellFocused)
+                                .keyboardType(.numberPad)
+                                .onChange(of: isGameNumberCellFocused) { _, newValue in
+                                    guard newValue else { return }
+                                    withAnimation {
+                                        reader.scrollTo("GameNumberCell", anchor: .top)
+                                    }
+                                }
                         }
                         
                         Section {
                             TextField("Notes", text: $notesNext, axis: .vertical)
                                 .id("NotesCell")
-                                .focused($isNameFocused)
+                                .focused($isNotesCellFocused)
                                 .onChange(of: notesNext) { _, _ in
                                     withAnimation {
-                                        reader.scrollTo("NotesCell", anchor: .bottom)
+                                        reader.scrollTo("EmptyColorCell", anchor: .bottom)
+                                    }
+                                }
+                                .onChange(of: isNotesCellFocused) { _, newValue in
+                                    guard newValue else { return }
+                                    withAnimation {
+                                        reader.scrollTo("EmptyColorCell", anchor: .bottom)
                                     }
                                 }
                         }
+                        
+                        //Helper cell for scrolling for last notes textfield cell
+                        Section {
+                            Color.clear
+                                .id("EmptyColorCell")
+                                .frame(height: 270)
+                                .listRowBackground(Color.clear)
+                                .background(Color.clear)
+                        }
                     }
+                    
                     .scrollDismissesKeyboard(.interactively)
+                    .scrollContentBackground(.visible)
+                    .ignoresSafeArea(.keyboard, edges: .vertical)
                 }
             }
             .navigationTitle("New player")
@@ -134,10 +170,6 @@ struct CreatePlayerView: View {
             .onChange(of: playerImage) {
                 shouldShowCropView = playerImage != nil
                 photoPickerItem = nil
-            }
-            
-            .onChange(of: isNameFocused) { first, second in
-                print("keyboard: \(second)")
             }
             
             .fullScreenCover(isPresented: $shouldShowCropView) {
@@ -161,7 +193,6 @@ struct CreatePlayerView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        
                         dismiss()
                     } label: {
                         Text("done")
@@ -178,6 +209,16 @@ struct CreatePlayerView: View {
                 }
             }
         }
+    }
+}
+
+//MARK: - Private methods
+private extension CreatePlayerView {
+    func unfocusAllTextFields() {
+    isNameCellFocused = false
+    isSurnameCellFocused = false
+    isNotesCellFocused = false
+    isGameNumberCellFocused = false
     }
 }
 
