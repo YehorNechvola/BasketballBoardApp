@@ -28,6 +28,7 @@
 		A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638512C0DF31500FB6BE2 /* PlayersListView.swift */; };
 		A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */; };
 		A69C123E2C255A4000CBE95E /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69C123D2C255A4000CBE95E /* CropView.swift */; };
+		A6BFE36A2C747F0C00DD2753 /* TwoColumnNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		A62638512C0DF31500FB6BE2 /* PlayersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListView.swift; sourceTree = "<group>"; };
 		A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemViewCell.swift; sourceTree = "<group>"; };
 		A69C123D2C255A4000CBE95E /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+		A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoColumnNumberPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 			children = (
 				A61935FE2C6636A700416DFB /* CreatePlayerView.swift */,
 				A61C1D9F2C6F69B700472F61 /* DatePickerView.swift */,
+				A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6BFE36A2C747F0C00DD2753 /* TwoColumnNumberPickerView.swift in Sources */,
 				A62638492C0DC7BE00FB6BE2 /* MyTeamViewModel.swift in Sources */,
 				A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */,
 				A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */,

@@ -29,6 +29,11 @@ struct CreatePlayerView: View {
     @State private var name: String = ""
     @State private var surname: String = ""
     @State private var gameNumber: String = ""
+    @State private var firstSelectedNumber = 0
+    @State private var additionalNumber: Int = 0
+    @State private var shouldShowNumberPicker = false
+    private var nameCellId: String { "nameCellId" }
+    private var lastCellId: String { "lastCellId" }
     
     private var dateColor: UIColor {
         selectedDateToString == "Date of birth" ? .placeholderText : .black
@@ -57,10 +62,13 @@ struct CreatePlayerView: View {
                     List {
                         Section {
                             HStack {
+                                
                                 Spacer()
                                 
                                 VStack(alignment: .center) {
+                                    
                                     PhotosPicker(selection: $photoPickerItem, matching: .images) {
+
                                     
                                         Image(uiImage: croppedPlayerImage ?? UIImage(resource: .playerPlaceholder))
                                             .resizable()
@@ -81,11 +89,13 @@ struct CreatePlayerView: View {
                                 }
                                 Spacer()
                             }
+                            .id("firstCell")
                         }
                         .listRowBackground(Color.clear)
                         
                         Section {
                             TextField("Name", text: $name)
+                                .id(nameCellId)
                                 .submitLabel(.done)
                                 .focused($isNameCellFocused)
                             TextField("Surname", text: $surname)
@@ -96,6 +106,10 @@ struct CreatePlayerView: View {
                                 .onTapGesture {
                                     unfocusAllTextFields()
                                     showDatePicker.toggle()
+                                    scrollToRow(by: showDatePicker ? lastCellId : nameCellId, reader: reader)
+                                }
+                                .onChange(of: showDatePicker) { _, newValue in
+                                    scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
                                 }
                             
                             Picker("Position", selection: $selectedPosition) {
@@ -109,40 +123,30 @@ struct CreatePlayerView: View {
                                 unfocusAllTextFields()
                             }
                             
-                            TextField("Game number", text: $gameNumber)
-                                .id("GameNumberCell")
-                                .submitLabel(.done)
-                                .focused($isGameNumberCellFocused)
-                                .keyboardType(.numberPad)
-                                .onChange(of: isGameNumberCellFocused) { _, newValue in
-                                    guard newValue else { return }
-                                    withAnimation {
-                                        reader.scrollTo("GameNumberCell", anchor: .top)
-                                    }
+                            Text("Game number")
+                                .onTapGesture {
+                                    unfocusAllTextFields()
+                                    shouldShowNumberPicker.toggle()
+                                }
+                            
+                                .onChange(of: shouldShowNumberPicker) { _, newValue in
+                                    scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
                                 }
                         }
                         
                         Section {
                             TextField("Notes", text: $notesNext, axis: .vertical)
-                                .id("NotesCell")
                                 .focused($isNotesCellFocused)
-                                .onChange(of: notesNext) { _, _ in
-                                    withAnimation {
-                                        reader.scrollTo("EmptyColorCell", anchor: .bottom)
-                                    }
-                                }
                                 .onChange(of: isNotesCellFocused) { _, newValue in
                                     guard newValue else { return }
-                                    withAnimation {
-                                        reader.scrollTo("EmptyColorCell", anchor: .bottom)
-                                    }
+                                    scrollToRow(by: lastCellId, reader: reader)
                                 }
                         }
                         
                         //Helper cell for scrolling for last notes textfield cell
                         Section {
                             Color.clear
-                                .id("EmptyColorCell")
+                                .id(lastCellId)
                                 .frame(height: 270)
                                 .listRowBackground(Color.clear)
                                 .background(Color.clear)
@@ -190,6 +194,11 @@ struct CreatePlayerView: View {
                     .presentationDetents([.height(300)])
             }
             
+            .sheet(isPresented: $shouldShowNumberPicker) {
+                TwoColumnWheelPicker(firstSelectedNumber: $firstSelectedNumber, secondSelectedNumber: $additionalNumber)
+                    .presentationDetents([.height(300)])
+            }
+            
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -219,6 +228,12 @@ private extension CreatePlayerView {
     isSurnameCellFocused = false
     isNotesCellFocused = false
     isGameNumberCellFocused = false
+    }
+    
+    func scrollToRow(by id: String, reader: ScrollViewProxy) {
+        withAnimation {
+            reader.scrollTo(id, anchor: .bottom)
+        }
     }
 }
 
