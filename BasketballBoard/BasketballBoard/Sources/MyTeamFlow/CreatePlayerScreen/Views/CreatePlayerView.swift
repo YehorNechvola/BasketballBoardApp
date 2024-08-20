@@ -11,33 +11,19 @@ import PhotosUI
 
 struct CreatePlayerView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
+    @StateObject var localViewModel = CreatePlayerViewModel()
     @Environment(\.dismiss) var dismiss
     @FocusState private var isNameCellFocused: Bool
     @FocusState private var isSurnameCellFocused: Bool
     @FocusState private var isNotesCellFocused: Bool
     @FocusState private var isGameNumberCellFocused: Bool
     
-    @State private var shouldShowCropView = false
     @State private var photoPickerItem: PhotosPickerItem?
     @State private var playerImage: UIImage?
     @State private var croppedPlayerImage: UIImage?
-    @State private var selectedPosition: Player.PlayerPosition = .pointGuard
-    @State private var selectedDate = Date()
-    @State private var showDatePicker = false
-    @State private var selectedDateToString = "Date of birth"
-    @State private var notesNext = ""
-    @State private var name: String = ""
-    @State private var surname: String = ""
-    @State private var gameNumber: String = ""
-    @State private var firstSelectedNumber = 0
-    @State private var additionalNumber: Int = 0
-    @State private var shouldShowNumberPicker = false
+    
     private var nameCellId: String { "nameCellId" }
     private var lastCellId: String { "lastCellId" }
-    
-    private var dateColor: UIColor {
-        selectedDateToString == "Date of birth" ? .placeholderText : .black
-    }
     
     private var playerImagePadding: CGFloat {
         if let _ = croppedPlayerImage {
@@ -94,25 +80,25 @@ struct CreatePlayerView: View {
                         .listRowBackground(Color.clear)
                         
                         Section {
-                            TextField("Name", text: $name)
+                            TextField("Name", text: binding(for: \.nameInput, default: ""))
                                 .id(nameCellId)
                                 .submitLabel(.done)
                                 .focused($isNameCellFocused)
-                            TextField("Surname", text: $surname)
+                            TextField("Surname", text: binding(for: \.surnameInput, default: ""))
                                 .submitLabel(.done)
                                 .focused($isSurnameCellFocused)
-                            Text(selectedDateToString)
-                                .foregroundStyle(Color(uiColor: dateColor))
+                            Text(localViewModel.selectedDateToString ?? "Date of birth")
+                                .foregroundStyle(Color(uiColor: .black))
                                 .onTapGesture {
                                     unfocusAllTextFields()
-                                    showDatePicker.toggle()
-                                    scrollToRow(by: showDatePicker ? lastCellId : nameCellId, reader: reader)
+                                    localViewModel.shouldShowDatePicker.toggle()
+                                    scrollToRow(by: localViewModel.shouldShowDatePicker ? lastCellId : nameCellId, reader: reader)
                                 }
-                                .onChange(of: showDatePicker) { _, newValue in
+                                .onChange(of: localViewModel.shouldShowDatePicker) { _, newValue in
                                     scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
                                 }
                             
-                            Picker("Position", selection: $selectedPosition) {
+                            Picker("Position", selection: $localViewModel.selectedPosition) {
                                 ForEach(Player.PlayerPosition.allCases) { position in
                                     Text(position.positionToString).tag(position)
                                 }
@@ -123,19 +109,21 @@ struct CreatePlayerView: View {
                                 unfocusAllTextFields()
                             }
                             
-                            Text("Game number")
+                            Text(localViewModel.numberPlayerToString)
                                 .onTapGesture {
                                     unfocusAllTextFields()
-                                    shouldShowNumberPicker.toggle()
+                                    localViewModel.shouldShowNumberPicker.toggle()
                                 }
                             
-                                .onChange(of: shouldShowNumberPicker) { _, newValue in
+                                .onChange(of: localViewModel.shouldShowNumberPicker) { _, newValue in
                                     scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
                                 }
                         }
                         
                         Section {
-                            TextField("Notes", text: $notesNext, axis: .vertical)
+                            TextField("Notes",
+                                      text: binding(for: \.notesInput, default: ""),
+                                      axis: .vertical)
                                 .focused($isNotesCellFocused)
                                 .onChange(of: isNotesCellFocused) { _, newValue in
                                     guard newValue else { return }
@@ -172,30 +160,33 @@ struct CreatePlayerView: View {
             }
             
             .onChange(of: playerImage) {
-                shouldShowCropView = playerImage != nil
+                localViewModel.shouldShowCropView = playerImage != nil
                 photoPickerItem = nil
             }
             
-            .fullScreenCover(isPresented: $shouldShowCropView) {
+            .fullScreenCover(isPresented: $localViewModel.shouldShowCropView) {
                 CropView(image: playerImage!,
                          maskShape: .circle,
                          configuration: SwiftyCropConfiguration()) { croppedImage in
                     croppedPlayerImage = croppedImage
-                    shouldShowCropView.toggle()
+                    localViewModel.shouldShowCropView.toggle()
                 } onCancelCompletion: {
-                    shouldShowCropView.toggle()
+                    localViewModel.shouldShowCropView.toggle()
                 }
                 .toolbar(.hidden)
                 .transition(.opacity)
             }
             
-            .sheet(isPresented: $showDatePicker) {
-                DatePickerView(selectedDate: $selectedDate, selectedDateToString: $selectedDateToString)
+                .sheet(isPresented: $localViewModel.shouldShowDatePicker) {
+                    DatePickerView(selectedDate: $localViewModel.selectedDate,
+                                   selectedDateToString: binding(for: \.selectedDateToString, default: "Date of birth"))
                     .presentationDetents([.height(300)])
             }
             
-            .sheet(isPresented: $shouldShowNumberPicker) {
-                TwoColumnWheelPicker(firstSelectedNumber: $firstSelectedNumber, secondSelectedNumber: $additionalNumber)
+                .sheet(isPresented: $localViewModel.shouldShowNumberPicker) {
+                    TwoColumnWheelPicker(firstSelectedNumber: $localViewModel.firstSelectedNumber,
+                                         secondSelectedNumber: $localViewModel.additionalNumber,
+                                         shouldAddSecondNumber: $localViewModel.shouldAddSecondNumber)
                     .presentationDetents([.height(300)])
             }
             
@@ -235,6 +226,14 @@ private extension CreatePlayerView {
             reader.scrollTo(id, anchor: .bottom)
         }
     }
+
+    
+    func binding<T>(for keyPath: ReferenceWritableKeyPath<CreatePlayerViewModel, T?>, default value: T) -> Binding<T> {
+            Binding<T>(
+                get: { localViewModel[keyPath: keyPath] ?? value },
+                set: { localViewModel[keyPath: keyPath] = $0 }
+            )
+        }
 }
 
 #Preview {

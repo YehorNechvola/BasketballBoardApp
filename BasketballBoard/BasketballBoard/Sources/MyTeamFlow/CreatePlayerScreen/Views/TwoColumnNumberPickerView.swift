@@ -11,7 +11,7 @@ struct TwoColumnWheelPicker: View {
     @Binding var firstSelectedNumber: Int
     @Binding var secondSelectedNumber: Int
     @Environment(\.dismiss) private var dismiss
-    @State private var shouldAddSecondNumber = false
+    @Binding var shouldAddSecondNumber: Bool
 
     var firstColumnRange: [Int] = Array(0...9)
     var secondColumnRange: [Int] = Array(0...9)

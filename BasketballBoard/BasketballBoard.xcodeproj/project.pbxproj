@@ -29,6 +29,7 @@
 		A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */; };
 		A69C123E2C255A4000CBE95E /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69C123D2C255A4000CBE95E /* CropView.swift */; };
 		A6BFE36A2C747F0C00DD2753 /* TwoColumnNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */; };
+		A6BFE36C2C74A69200DD2753 /* CreatePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFE36B2C74A69200DD2753 /* CreatePlayerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemViewCell.swift; sourceTree = "<group>"; };
 		A69C123D2C255A4000CBE95E /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
 		A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoColumnNumberPickerView.swift; sourceTree = "<group>"; };
+		A6BFE36B2C74A69200DD2753 /* CreatePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlayerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				A61C1DA12C6F69E800472F61 /* Views */,
+				A6BFE36D2C74CC0300DD2753 /* ViewModel */,
 			);
 			path = CreatePlayerScreen;
 			sourceTree = "<group>";
@@ -267,6 +270,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		A6BFE36D2C74CC0300DD2753 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A6BFE36B2C74A69200DD2753 /* CreatePlayerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -353,6 +364,7 @@
 				A61C1DA02C6F69B700472F61 /* DatePickerView.swift in Sources */,
 				A62638452C0DC78800FB6BE2 /* MyTeamView.swift in Sources */,
 				A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */,
+				A6BFE36C2C74A69200DD2753 /* CreatePlayerViewModel.swift in Sources */,
 				A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */,
 				A60CD4992C0787C500CC8BC1 /* BoardScreenPointer.swift in Sources */,
 				A69C123E2C255A4000CBE95E /* CropView.swift in Sources */,
