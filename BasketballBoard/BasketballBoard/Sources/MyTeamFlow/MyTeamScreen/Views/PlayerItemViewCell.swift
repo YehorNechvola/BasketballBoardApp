@@ -32,8 +32,3 @@ struct PlayerItemViewCell: View {
         }
     }
 }
-
-#Preview {
-    
-    return PlayerItemViewCell(player: Player(name: "test", surname: "test", position: Player.PlayerPosition.center))
-}

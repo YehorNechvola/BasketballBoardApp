@@ -214,6 +214,8 @@ struct CreatePlayerView: View {
                          maskShape: .circle,
                          configuration: SwiftyCropConfiguration()) { croppedImage in
                     croppedPlayerImage = croppedImage
+//                    localViewModel.playePhotoData = croppedImage.jpegData
+//                    localViewModel.playePhotoData = UIImage(resource: .ball).pngData
                     localViewModel.shouldShowCropView.toggle()
                 } onCancelCompletion: {
                     localViewModel.shouldShowCropView.toggle()
@@ -237,10 +239,13 @@ struct CreatePlayerView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        viewModel.addNewPlayer(localViewModel.createPlayer())
                         dismiss()
                     } label: {
-                        Text("save")
+                        Text("add")
                     }
+                    .disabled(!localViewModel.enableSavePlayer)
+                    .opacity(localViewModel.enableSavePlayer ? 1 : 0.5)
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {

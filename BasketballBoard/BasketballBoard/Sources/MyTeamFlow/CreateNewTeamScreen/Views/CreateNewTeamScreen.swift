@@ -30,8 +30,8 @@ struct CreateNewTeamScreen: View {
                                 Image(uiImage: croppedTeamImage ?? UIImage(resource: .teamPlaceholder))
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 200, height: 200)
-                                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                                    .frame(width: 150, height: 150)
+                                    .padding(EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6))
                                     .background(Color.white)
                                     .clipShape(Circle())
                             }
@@ -46,6 +46,7 @@ struct CreateNewTeamScreen: View {
                 
                 Section {
                     TextField("Name of team", text: $teamNameText)
+                        .submitLabel(.done)
                 }
             }
             .listSectionSpacing(15)

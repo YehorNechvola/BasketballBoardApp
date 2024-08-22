@@ -36,12 +36,12 @@ struct Player: Equatable {
     
     var name: String
     var surname: String
-    var isStartingPlayer: Bool = true
-    var team: Team?
+    var playerNumber: Int
     var position: PlayerPosition
     var photoData: Data?
-    var birthDate: String?
+    var birthDate: Date
     var notes: String?
+    var isStartingPlayer = false
 }
 
 struct Team: Equatable, Identifiable {

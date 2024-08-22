@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 final class CreatePlayerViewModel: ObservableObject {
+    
     //MARK: - UI showing Properties
     @Published var shouldShowCropView = false
     @Published var shouldShowNumberPicker = false
@@ -30,6 +31,7 @@ final class CreatePlayerViewModel: ObservableObject {
     @Published var nameInput: String?
     @Published var surnameInput: String?
     @Published var notesInput: String?
+    var playePhotoData: Data?
     
     //MARK: - Player game number
     @Published var firstSelectedNumber = 0
@@ -42,4 +44,37 @@ final class CreatePlayerViewModel: ObservableObject {
         }
         return "\(firstSelectedNumber)" + "\(secondSelectedNumber)"
     }
+    
+    var enableSavePlayer: Bool {
+        if let nameInput,
+           let surnameInput,
+           let _ = selectedPosition,
+           let _ = selectedDateToString,
+           !nameInput.isEmpty,
+           !surnameInput.isEmpty {
+            return true
+        }
+        return false
+    }
+    
+    //MARK: - Methods
+    func createPlayer() -> Player? {
+        guard let nameInput,
+              let surnameInput,
+              let selectedPosition,
+              let _ = selectedDateToString,
+           !nameInput.isEmpty,
+           !surnameInput.isEmpty else {
+            return nil
+        }
+        
+       return Player(name: nameInput,
+                     surname: surnameInput,
+                     playerNumber: Int(numberPlayerToString) ?? 0,
+                     position: selectedPosition,
+                     photoData: playePhotoData,
+                     birthDate: selectedDate,
+                     notes: notesInput)
+    }
 }
+

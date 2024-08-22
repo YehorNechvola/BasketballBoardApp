@@ -19,7 +19,7 @@ struct DatePickerView: View {
                 .labelsHidden()
                 .padding()
 
-            Button("Done") {
+            Button("done") {
                 dismiss()
             }
         }
