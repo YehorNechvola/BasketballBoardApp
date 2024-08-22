@@ -41,6 +41,20 @@ struct CreatePlayerView: View {
         }
     }
     
+    private var dateTextColor: UIColor {
+        guard let _ = localViewModel.selectedDateToString else {
+            return .placeholderText
+        }
+        return .black
+    }
+    
+    private var playerPositionTextColor: UIColor {
+        guard let _ = localViewModel.selectedPosition else {
+            return .placeholderText
+        }
+        return .black
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -54,8 +68,6 @@ struct CreatePlayerView: View {
                                 VStack(alignment: .center) {
                                     
                                     PhotosPicker(selection: $photoPickerItem, matching: .images) {
-
-                                    
                                         Image(uiImage: croppedPlayerImage ?? UIImage(resource: .playerPlaceholder))
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
@@ -75,7 +87,6 @@ struct CreatePlayerView: View {
                                 }
                                 Spacer()
                             }
-                            .id("firstCell")
                         }
                         .listRowBackground(Color.clear)
                         
@@ -87,37 +98,68 @@ struct CreatePlayerView: View {
                             TextField("Surname", text: binding(for: \.surnameInput, default: ""))
                                 .submitLabel(.done)
                                 .focused($isSurnameCellFocused)
-                            Text(localViewModel.selectedDateToString ?? "Date of birth")
-                                .foregroundStyle(Color(uiColor: .black))
-                                .onTapGesture {
-                                    unfocusAllTextFields()
-                                    localViewModel.shouldShowDatePicker.toggle()
-                                    scrollToRow(by: localViewModel.shouldShowDatePicker ? lastCellId : nameCellId, reader: reader)
-                                }
-                                .onChange(of: localViewModel.shouldShowDatePicker) { _, newValue in
-                                    scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
-                                }
-                            
-                            Picker("Position", selection: $localViewModel.selectedPosition) {
-                                ForEach(Player.PlayerPosition.allCases) { position in
-                                    Text(position.positionToString).tag(position)
-                                }
+                            HStack {
+                                Text(localViewModel.selectedDateToString ?? "Date of birth")
+                                    .foregroundStyle(Color(uiColor: dateTextColor))
+                                    .onChange(of: localViewModel.shouldShowDatePicker) { _, newValue in
+                                        scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
+                                    }
+                                Spacer()
                             }
-                            .pickerStyle(MenuPickerStyle())
-                            .foregroundStyle(.black)
+                            .frame(maxWidth: .infinity)
+                            .background()
                             .onTapGesture {
                                 unfocusAllTextFields()
+                                localViewModel.shouldShowDatePicker.toggle()
+                                scrollToRow(by: localViewModel.shouldShowDatePicker ? lastCellId : nameCellId, reader: reader)
                             }
                             
-                            Text(localViewModel.numberPlayerToString)
+                            Menu {
+                                ForEach(Player.PlayerPosition.allCases) { position in
+                                    Button {
+                                        localViewModel.selectedPosition = position
+                                    } label: {
+                                        HStack {
+                                            Text(position.positionToString).tag(position)
+                                            
+                                            Spacer()
+                                            
+                                            if position == localViewModel.selectedPosition {
+                                                Image(systemName: "checkmark")
+                                            }
+                                        }
+                                    }
+                                }
+                            } label: {
+                                HStack {
+                                    Text("\(localViewModel.playerPositionText)")
+                                    Spacer()
+                                }
+                                .frame(maxWidth: .infinity)
+                                .background()
                                 .onTapGesture {
                                     unfocusAllTextFields()
-                                    localViewModel.shouldShowNumberPicker.toggle()
                                 }
+                                
+                            }
+                            .foregroundStyle(Color(uiColor: playerPositionTextColor))
                             
-                                .onChange(of: localViewModel.shouldShowNumberPicker) { _, newValue in
-                                    scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
-                                }
+                            
+                            HStack {
+                                Text("Player number:")
+                                    .foregroundStyle(Color(uiColor: .placeholderText))
+                                Text(localViewModel.numberPlayerToString)
+                                    .onChange(of: localViewModel.shouldShowNumberPicker) { _, newValue in
+                                        scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
+                                    }
+                                Spacer()
+                            }
+                            .frame(maxWidth: .infinity)
+                            .background()
+                            .onTapGesture {
+                                unfocusAllTextFields()
+                                localViewModel.shouldShowNumberPicker.toggle()
+                            }
                         }
                         
                         Section {
@@ -127,6 +169,9 @@ struct CreatePlayerView: View {
                                 .focused($isNotesCellFocused)
                                 .onChange(of: isNotesCellFocused) { _, newValue in
                                     guard newValue else { return }
+                                    scrollToRow(by: lastCellId, reader: reader)
+                                }
+                                .onChange(of: localViewModel.notesInput) { _, _ in
                                     scrollToRow(by: lastCellId, reader: reader)
                                 }
                         }
@@ -177,17 +222,16 @@ struct CreatePlayerView: View {
                 .transition(.opacity)
             }
             
-                .sheet(isPresented: $localViewModel.shouldShowDatePicker) {
-                    DatePickerView(selectedDate: $localViewModel.selectedDate,
-                                   selectedDateToString: binding(for: \.selectedDateToString, default: "Date of birth"))
-                    .presentationDetents([.height(300)])
+            .sheet(isPresented: $localViewModel.shouldShowDatePicker) {
+                DatePickerView(selectedDate: $localViewModel.selectedDate,
+                               selectedDateToString: binding(for: \.selectedDateToString, default: "Date of birth"))
+                .presentationDetents([.height(300)])
             }
             
-                .sheet(isPresented: $localViewModel.shouldShowNumberPicker) {
-                    TwoColumnWheelPicker(firstSelectedNumber: $localViewModel.firstSelectedNumber,
-                                         secondSelectedNumber: $localViewModel.additionalNumber,
-                                         shouldAddSecondNumber: $localViewModel.shouldAddSecondNumber)
-                    .presentationDetents([.height(300)])
+            .sheet(isPresented: $localViewModel.shouldShowNumberPicker) {
+                TwoColumnWheelPicker(firstSelectedNumber: $localViewModel.firstSelectedNumber,
+                                     secondSelectedNumber: $localViewModel.secondSelectedNumber)
+                .presentationDetents([.height(300)])
             }
             
             .toolbar {
@@ -195,9 +239,8 @@ struct CreatePlayerView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("done")
+                        Text("save")
                     }
-                    .disabled(true)
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {

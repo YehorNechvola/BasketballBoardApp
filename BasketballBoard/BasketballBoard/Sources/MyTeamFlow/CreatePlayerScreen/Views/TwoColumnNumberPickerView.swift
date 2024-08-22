@@ -11,7 +11,7 @@ struct TwoColumnWheelPicker: View {
     @Binding var firstSelectedNumber: Int
     @Binding var secondSelectedNumber: Int
     @Environment(\.dismiss) private var dismiss
-    @Binding var shouldAddSecondNumber: Bool
+//    @Binding var shouldAddSecondNumber: Bool
 
     var firstColumnRange: [Int] = Array(0...9)
     var secondColumnRange: [Int] = Array(0...9)
@@ -28,35 +28,18 @@ struct TwoColumnWheelPicker: View {
                         }
                     }
                     .pickerStyle(WheelPickerStyle())
-                    .frame(width: 120)
                 }
-
-                if shouldAddSecondNumber {
-                    VStack {
-                        Text("Second number")
-                        
-                        Picker("SecondColumn", selection: $secondSelectedNumber) {
-                            ForEach(secondColumnRange, id: \.self) { value in
-                                Text("\(value)").tag(value)
-                            }
+                
+                VStack {
+                    Text("Second number")
+                    
+                    Picker("SecondColumn", selection: $secondSelectedNumber) {
+                        ForEach(secondColumnRange, id: \.self) { value in
+                            Text("\(value)").tag(value)
                         }
-                        .pickerStyle(WheelPickerStyle())
-                        .frame(width: 120)
                     }
+                    .pickerStyle(WheelPickerStyle())
                 }
-            }
-            
-            Button {
-                withAnimation {
-                    shouldAddSecondNumber.toggle()
-                }
-                
-            } label: {
-                
-                Image(systemName: shouldAddSecondNumber ? "minus.circle.fill" : "plus.circle.fill")
-                    .resizable()
-                    .tint(.blue)
-                    .frame(width: 35, height: 35)
             }
             
             Button("done") {

@@ -14,10 +14,15 @@ final class CreatePlayerViewModel: ObservableObject {
     @Published var shouldShowNumberPicker = false
     @Published var shouldAddSecondNumber = false
     @Published var shouldShowDatePicker = false
-    @Published var dateWasTapped = false
     
     //MARK: - Player Information
-    @Published var selectedPosition = Player.PlayerPosition.pointGuard
+    @Published var selectedPosition: Player.PlayerPosition?
+    var playerPositionText: String {
+        guard let selectedPosition else {
+            return "Position"
+        }
+        return selectedPosition.positionToString
+    }
     @Published var selectedDate = Date()
     @Published var selectedDateToString: String?
     
@@ -28,16 +33,13 @@ final class CreatePlayerViewModel: ObservableObject {
     
     //MARK: - Player game number
     @Published var firstSelectedNumber = 0
-    @Published var additionalNumber = 0
+    @Published var secondSelectedNumber = 0
 
     //MARK: - Computed Properties
     var numberPlayerToString: String {
-        let primaryNumber = "\(firstSelectedNumber)"
-        let secondaryNumber = "\(additionalNumber)"
-        
-        if !shouldAddSecondNumber || firstSelectedNumber == 0 {
-            return secondaryNumber
+        if  firstSelectedNumber == 0 {
+            return "\(secondSelectedNumber)"
         }
-        return primaryNumber + secondaryNumber
+        return "\(firstSelectedNumber)" + "\(secondSelectedNumber)"
     }
 }
