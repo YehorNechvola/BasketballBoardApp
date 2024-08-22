@@ -80,7 +80,7 @@ struct CropView: View {
                     .scaledToFit()
                     .scaleEffect(viewModel.scale)
                     .offset(viewModel.offset)
-                    .opacity(0.5)
+                    .opacity(viewModel.imageOpacity)
                     .overlay(
                         GeometryReader { geometry in
                             Color.clear
@@ -106,6 +106,7 @@ struct CropView: View {
 
             HStack {
                 Button {
+                    viewModel.imageOpacity = .zero
                     onCancelCompletion()
                 } label: {
                     Image(systemName: "xmark.circle")
@@ -118,6 +119,7 @@ struct CropView: View {
                 Spacer()
 
                 Button {
+                    viewModel.imageOpacity = .zero
                     onComplete(cropImage())
                 } label: {
                     Image(systemName: "checkmark.circle")
@@ -187,6 +189,7 @@ class CropViewModel: ObservableObject {
     @Published var lastOffset: CGSize = .zero
     @Published var angle: Angle = Angle(degrees: 0)
     @Published var lastAngle: Angle = Angle(degrees: 0)
+    @Published var imageOpacity: CGFloat = 0.5
 
     init(maskRadius: CGFloat, maxMagnificationScale: CGFloat) {
         self.maskRadius = maskRadius

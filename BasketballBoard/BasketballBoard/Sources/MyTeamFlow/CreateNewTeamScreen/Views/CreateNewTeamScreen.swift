@@ -35,6 +35,7 @@ struct CreateNewTeamScreen: View {
                                     .background(Color.white)
                                     .clipShape(Circle())
                             }
+                            .interactiveDismissDisabled()
                             
                             Text("add photo")
                         }
