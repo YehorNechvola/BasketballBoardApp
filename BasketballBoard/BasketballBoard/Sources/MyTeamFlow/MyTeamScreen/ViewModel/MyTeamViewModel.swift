@@ -8,91 +8,86 @@
 import Foundation
 import Combine
 
-//protocol MyTeamViewModelProtocol {
-//    var myTeams: [Team] { get }
-//    
-//    func addNewPlayer()
-//    func removePlayer(by index: Int)
-//    func addNewTeam(name: String)
-//    func editTeam()
-//}
 
 final class MyTeamViewModel: ObservableObject {
     
     //MARK: - Properties
-    @Published var myTeams: [Team] = []
+    private let storeManager: CoreDataStackManager = .shared
+    private let userDefaultsManager: UserDefaultsManager = .shared
+    
+    @Published var myTeams: [TeamCore] = []
     @Published var createNewTeamPressed = false
     @Published var createNewPlayerPressed = false
+    @Published var shouldShowMessage = false
     
-    var currentTeam: Team? {
-        myTeams.first
-    }
-    var currentTeamPlayers: [Player]?
-    var playerToDelete: Player?
     
-    var shouldShowMessage = false
-    
-    var startingPlayers: [Player] {
-        currentTeamPlayers?.filter { $0.isStartingPlayer }
-            .sorted{ $0.position.rawValue < $1.position.rawValue } ?? []
+    var currentTeam: TeamCore? {
+        myTeams.first { $0.id == userDefaultsManager.currentTeamId }
     }
     
-    var benchPlayers: [Player] {
-        currentTeamPlayers?.filter { !$0.isStartingPlayer }
-            .sorted{ $0.position.rawValue < $1.position.rawValue } ?? []
+    var teamsCount: Int { myTeams.count }
+    var playerToDelete: PlayerCore?
+    
+    var startingPlayers: [PlayerCore] {
+        let playersArray: [PlayerCore] = (currentTeam?.players?.allObjects ?? []) as! [PlayerCore]
+        
+        return playersArray.filter { $0.isStartingPlayer }.sorted { $0.additionNumber < $1.additionNumber }
     }
     
-    var isEnableAddPlayersToStart: Bool {
-        startingPlayers.count < 5
+    var benchPlayers: [PlayerCore] {
+        let playersArray: [PlayerCore] = (currentTeam?.players?.allObjects ?? []) as! [PlayerCore]
+        
+        return playersArray.filter { !$0.isStartingPlayer }.sorted { $0.additionNumber < $1.additionNumber }
     }
     
     //MARK: - Init
     init() {
-        myTeams = fetchTeams()
-        currentTeamPlayers = currentTeam?.players ?? []
+        myTeams = storeManager.fetchAllTeams()
     }
     
     //MARK: - Protocol methods
     func updateCurrentTeam(_ team: Team) {
-        currentTeamPlayers = team.players
+
     }
     
-    func removePlayer(player: Player?) {
-        guard let indexToRemove = currentTeam?.players.firstIndex(where: {$0 == player}) else { return }
-        guard let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
+    func removePlayer(player: PlayerCore?) {
+        guard let currentTeam,
+              let player else {
+            return
+        }
         
-        currentTeamPlayers?.remove(at: indexToRemove)
-        myTeams[indexOfTeam].players.remove(at: indexToRemove)
+        storeManager.deletePlayer(from: currentTeam, playerToDelete: player)
+        myTeams = storeManager.fetchAllTeams()
     }
     
-    func setPlayerToDelete(_ player: Player?) {
+    func setPlayerToDelete(_ player: PlayerCore?) {
         playerToDelete = player
     }
     
-    func movePlayerToOrFromBench(_ player: Player) {
-        guard let indexToMove = currentTeam?.players.firstIndex(where: {$0 == player}),
-              let indexOfTeam = myTeams.firstIndex(where: {$0 == currentTeam}) else { return }
-        
-        if player.isStartingPlayer {
-            currentTeamPlayers?[indexToMove].isStartingPlayer.toggle()
-            myTeams[indexOfTeam].players[indexToMove].isStartingPlayer.toggle()
-        } else {
-            guard isEnableAddPlayersToStart else {
+    func movePlayerToOrFromBench(_ player: PlayerCore) {
+        let canMovePlayer = player.isStartingPlayer || startingPlayers.count < 5
+
+            if canMovePlayer {
+                storeManager.updatePlayerStarting(player)
+                myTeams = storeManager.fetchAllTeams()
+            } else {
                 shouldShowMessage = true
-                return
             }
-            currentTeamPlayers?[indexToMove].isStartingPlayer.toggle()
-            myTeams[indexOfTeam].players[indexToMove].isStartingPlayer.toggle()
-        }
     }
     
     func addNewTeam(name: String, imageData: Data? = nil) {
-        let newTeam = Team(name: name, teamPhotoData: imageData)
-        myTeams.append(newTeam)
+        userDefaultsManager.currentTeamId = storeManager.createTeam(name: name, photoData: imageData)
+        myTeams = storeManager.fetchAllTeams()
     }
     
     func addNewPlayer(_ player: Player?) {
-        guard let player else { return }
+        guard let player,
+              let currentTeam else {
+            return
+        }
+        
+        storeManager.addPlayer(to: currentTeam, playerEntity: player)
+        myTeams = storeManager.fetchAllTeams()
     }
     
     func editTeam() {
@@ -102,8 +97,5 @@ final class MyTeamViewModel: ObservableObject {
 
 //MARK: - Private methods
 private extension MyTeamViewModel {
-    func fetchTeams() -> [Team] {
-        
-        return []
-    }
+    
 }

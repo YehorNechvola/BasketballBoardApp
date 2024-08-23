@@ -27,6 +27,13 @@
 		A62638492C0DC7BE00FB6BE2 /* MyTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */; };
 		A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638512C0DF31500FB6BE2 /* PlayersListView.swift */; };
 		A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */; };
+		A6680F8B2C7777C3008B9031 /* CoreDataStackModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A6680F892C7777C3008B9031 /* CoreDataStackModel.xcdatamodeld */; };
+		A6680F992C777E27008B9031 /* TeamCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6680F952C777E27008B9031 /* TeamCore+CoreDataClass.swift */; };
+		A6680F9A2C777E27008B9031 /* TeamCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6680F962C777E27008B9031 /* TeamCore+CoreDataProperties.swift */; };
+		A6680F9B2C777E27008B9031 /* PlayerCore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6680F972C777E27008B9031 /* PlayerCore+CoreDataClass.swift */; };
+		A6680F9C2C777E27008B9031 /* PlayerCore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6680F982C777E27008B9031 /* PlayerCore+CoreDataProperties.swift */; };
+		A6680F9E2C778332008B9031 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6680F9D2C778332008B9031 /* CoreDataManager.swift */; };
+		A6680FA02C78BDA1008B9031 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6680F9F2C78BDA1008B9031 /* UserDefaultsManager.swift */; };
 		A69C123E2C255A4000CBE95E /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69C123D2C255A4000CBE95E /* CropView.swift */; };
 		A6BFE36A2C747F0C00DD2753 /* TwoColumnNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */; };
 		A6BFE36C2C74A69200DD2753 /* CreatePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFE36B2C74A69200DD2753 /* CreatePlayerViewModel.swift */; };
@@ -55,6 +62,13 @@
 		A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamViewModel.swift; sourceTree = "<group>"; };
 		A62638512C0DF31500FB6BE2 /* PlayersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListView.swift; sourceTree = "<group>"; };
 		A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemViewCell.swift; sourceTree = "<group>"; };
+		A6680F8A2C7777C3008B9031 /* CoreDataStackModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataStackModel.xcdatamodel; sourceTree = "<group>"; };
+		A6680F952C777E27008B9031 /* TeamCore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TeamCore+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		A6680F962C777E27008B9031 /* TeamCore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TeamCore+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		A6680F972C777E27008B9031 /* PlayerCore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerCore+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		A6680F982C777E27008B9031 /* PlayerCore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerCore+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		A6680F9D2C778332008B9031 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		A6680F9F2C78BDA1008B9031 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		A69C123D2C255A4000CBE95E /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
 		A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoColumnNumberPickerView.swift; sourceTree = "<group>"; };
 		A6BFE36B2C74A69200DD2753 /* CreatePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlayerViewModel.swift; sourceTree = "<group>"; };
@@ -118,6 +132,7 @@
 		A60CD48F2C07857500CC8BC1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A6680F882C777789008B9031 /* CoreDataStack */,
 				A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */,
 				A60CD4932C0786E600CC8BC1 /* BoardFlow */,
 				A62638402C0DC6E100FB6BE2 /* MyTeamFlow */,
@@ -174,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				A61C1D9D2C6F40F500472F61 /* DateFormatterService.swift */,
+				A6680F9F2C78BDA1008B9031 /* UserDefaultsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -241,6 +257,27 @@
 				A62638482C0DC7BE00FB6BE2 /* MyTeamViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A6680F882C777789008B9031 /* CoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				A6680F942C777DD3008B9031 /* Entity */,
+				A6680F892C7777C3008B9031 /* CoreDataStackModel.xcdatamodeld */,
+				A6680F9D2C778332008B9031 /* CoreDataManager.swift */,
+			);
+			path = CoreDataStack;
+			sourceTree = "<group>";
+		};
+		A6680F942C777DD3008B9031 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				A6680F952C777E27008B9031 /* TeamCore+CoreDataClass.swift */,
+				A6680F962C777E27008B9031 /* TeamCore+CoreDataProperties.swift */,
+				A6680F972C777E27008B9031 /* PlayerCore+CoreDataClass.swift */,
+				A6680F982C777E27008B9031 /* PlayerCore+CoreDataProperties.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		A67F404E2C09A6990006EAC0 /* Views */ = {
@@ -354,15 +391,22 @@
 				A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */,
 				A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */,
 				A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */,
+				A6680F9E2C778332008B9031 /* CoreDataManager.swift in Sources */,
 				A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */,
 				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
 				A61C1D9E2C6F40F500472F61 /* DateFormatterService.swift in Sources */,
+				A6680FA02C78BDA1008B9031 /* UserDefaultsManager.swift in Sources */,
+				A6680F992C777E27008B9031 /* TeamCore+CoreDataClass.swift in Sources */,
+				A6680F9A2C777E27008B9031 /* TeamCore+CoreDataProperties.swift in Sources */,
+				A6680F9B2C777E27008B9031 /* PlayerCore+CoreDataClass.swift in Sources */,
+				A6680F9C2C777E27008B9031 /* PlayerCore+CoreDataProperties.swift in Sources */,
 				A61935FF2C6636A700416DFB /* CreatePlayerView.swift in Sources */,
 				A60CD49C2C0788C400CC8BC1 /* UIView+DropShadow.swift in Sources */,
 				A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */,
 				A60A5F222C21B55900AA040D /* CreateNewTeamScreen.swift in Sources */,
 				A61C1DA02C6F69B700472F61 /* DatePickerView.swift in Sources */,
 				A62638452C0DC78800FB6BE2 /* MyTeamView.swift in Sources */,
+				A6680F8B2C7777C3008B9031 /* CoreDataStackModel.xcdatamodeld in Sources */,
 				A60CD4A22C0789A000CC8BC1 /* BoardView.swift in Sources */,
 				A6BFE36C2C74A69200DD2753 /* CreatePlayerViewModel.swift in Sources */,
 				A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */,
@@ -589,6 +633,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A6680F892C7777C3008B9031 /* CoreDataStackModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A6680F8A2C7777C3008B9031 /* CoreDataStackModel.xcdatamodel */,
+			);
+			currentVersion = A6680F8A2C7777C3008B9031 /* CoreDataStackModel.xcdatamodel */;
+			name = CoreDataStackModel.xcdatamodeld;
+			path = /Users/eva/Desktop/BasketballBoardApp/BasketballBoard/BasketballBoard/Sources/CoreDataStack/CoreDataStackModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A60CD4732C07808900CC8BC1 /* Project object */;
 }

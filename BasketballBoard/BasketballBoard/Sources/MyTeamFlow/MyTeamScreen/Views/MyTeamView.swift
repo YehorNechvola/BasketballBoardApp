@@ -11,7 +11,7 @@ struct MyTeamView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
     @Environment(\.dismiss) var dismiss
     private var currentTeamPhoto: UIImage? {
-        guard let photoData = viewModel.currentTeam?.teamPhotoData else {
+        guard let photoData = viewModel.currentTeam?.photo else {
             return nil
         }
         return UIImage(data: photoData)
@@ -41,9 +41,12 @@ struct MyTeamView: View {
                                         
                                     Text(viewModel.currentTeam?.name ?? "Current team")
                                         .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
-                                    Image(systemName: "arrowtriangle.down.fill")
-                                        .resizable()
-                                        .frame(width: 10, height: 10)
+                                    
+                                    if viewModel.teamsCount > 1 {
+                                        Image(systemName: "arrowtriangle.down.fill")
+                                            .resizable()
+                                            .frame(width: 10, height: 10)
+                                    }
                                 }
                             }
                             .disabled(viewModel.myTeams.isEmpty)

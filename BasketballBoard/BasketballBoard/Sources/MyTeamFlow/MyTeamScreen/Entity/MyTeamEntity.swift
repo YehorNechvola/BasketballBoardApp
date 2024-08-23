@@ -36,7 +36,7 @@ struct Player: Equatable {
     
     var name: String
     var surname: String
-    var playerNumber: Int
+    var playerNumber: Int16
     var position: PlayerPosition
     var photoData: Data?
     var birthDate: Date

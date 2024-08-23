@@ -10,7 +10,6 @@ import Combine
 
 struct PlayersListView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
-    @State private var shouldShowMessage: Bool = false
     @State private var cancellable: AnyCancellable?
     @State private var isPresentedActionSheet = false
     
@@ -65,7 +64,7 @@ struct PlayersListView: View {
 
 //MARK: - Private methods
 private extension PlayersListView {
-    func createPlayerSection(players: [Player], header: String) -> some View {
+    func createPlayerSection(players: [PlayerCore], header: String) -> some View {
         Section {
             ForEach(players, id: \.name) { player in
                 PlayerItemViewCell(player: player)
@@ -79,7 +78,7 @@ private extension PlayersListView {
         }
     }
     
-    func createDeleteButton(for player: Player) -> some View {
+    func createDeleteButton(for player: PlayerCore) -> some View {
         Button() {
             viewModel.setPlayerToDelete(player)
             isPresentedActionSheet = true
@@ -89,14 +88,13 @@ private extension PlayersListView {
         .tint(.red)
     }
     
-    func createMoveButton(for player: Player) -> some View {
+    func createMoveButton(for player: PlayerCore) -> some View {
         Button() {
             cancelHiddingMessage()
             scheduleHideMessage()
             
             withAnimation(.spring) {
                 viewModel.movePlayerToOrFromBench(player)
-                shouldShowMessage = viewModel.shouldShowMessage
             }
             
         } label: {
@@ -128,7 +126,7 @@ private extension PlayersListView {
     }
     
     func showStartingLinupMessage(proxy: GeometryProxy) -> some View {
-        let yOffset: CGFloat = shouldShowMessage ? 0 : -25
+        let yOffset: CGFloat = viewModel.shouldShowMessage ? 0 : -25
         
         return VStack {
             Text("Starting linup has already been formed")
@@ -146,7 +144,6 @@ private extension PlayersListView {
         let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
            cancellable = timer.sink { _ in
                withAnimation {
-                   shouldShowMessage = false
                    viewModel.shouldShowMessage = false
                }
                

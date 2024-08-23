@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayerItemViewCell: View {
-    var player: Player
+    var player: PlayerCore
     
     var body: some View {
         HStack(spacing: 20) {
@@ -23,7 +23,7 @@ struct PlayerItemViewCell: View {
                 
             Text(player.name + " " + player.surname)
             
-            Text("\(player.position.rawValue)")
+//            Text("\(player.position.rawValue)")
             
             Spacer()
             
