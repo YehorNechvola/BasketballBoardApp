@@ -8,17 +8,42 @@
 import SwiftUI
 
 struct PlayerItemViewCell: View {
+    
     var player: PlayerCore
+    private var playerImage: Image {
+        guard let imageData = player.photo,
+              let uiImage = UIImage(data: imageData) else {
+            return Image(.playerPlaceholder)
+        }
+        return Image(uiImage: uiImage)
+    }
+    
+    private var playerImagePadding: CGFloat {
+        if let _ =  player.photo {
+            return 0
+        } else {
+            return 6
+        }
+    }
+    
+    private var playerImageWidth: CGFloat {
+        if let _ = player.photo {
+            return 35
+        } else {
+            return 23
+        }
+    }
     
     var body: some View {
         HStack(spacing: 20) {
-            Image(.playerPlaceholder)
+            playerImage
                 .resizable()
                 .scaledToFit()
-                .frame(width: 23, height: 23)
-                .padding(EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6))
+                .frame(width: playerImageWidth, height: playerImageWidth)
+                .padding(playerImagePadding)
                 .background(Color.orange)
                 .clipShape(Circle())
+                .overlay(Circle().stroke(Color.black, lineWidth: 0.5))
             
             Text(player.name + " " + player.surname)
             
@@ -26,6 +51,7 @@ struct PlayerItemViewCell: View {
             
             Image(systemName: "chevron.right")
                 .foregroundStyle(.gray)
+    
         }
     }
 }

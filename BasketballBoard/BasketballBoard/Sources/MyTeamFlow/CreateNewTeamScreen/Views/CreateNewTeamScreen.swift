@@ -88,7 +88,7 @@ struct CreateNewTeamScreen: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        viewModel.addNewTeam(name: teamNameText, imageData: croppedTeamImage?.pngData())
+                        viewModel.addNewTeam(name: teamNameText, imageData: croppedTeamImage?.jpegData(compressionQuality: 0.7))
                         dismiss()
                     } label: {
                         Text("save")

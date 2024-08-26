@@ -78,6 +78,7 @@ private extension PlayersListView {
         } header: {
             Text(header)
         }
+        .listSectionSeparator(.hidden)
     }
     
     func createDeleteButton(for player: PlayerCore) -> some View {
@@ -94,16 +95,18 @@ private extension PlayersListView {
         Button() {
             cancelHiddingMessage()
             scheduleHideMessage()
+            withAnimation {
+                viewModel.handleStartingLineupMessage(player)
+            }
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation(.snappy) {
+                withAnimation {
                     viewModel.movePlayerToOrFromBench(player)
                 }
             }
             
         } label: {
-            Label(player.isStartingPlayer ? "To bench" : "To start",
-                  systemImage: player.isStartingPlayer ? "arrow.down.square.fill" : "arrow.up.square.fill")
-            
+            Image(systemName: player.isStartingPlayer ? "arrow.down.square.fill" : "arrow.up.square.fill")
         }
         .tint(player.isStartingPlayer ? .yellow : .green)
     }

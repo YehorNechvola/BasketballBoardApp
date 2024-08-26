@@ -76,5 +76,9 @@ final class CreatePlayerViewModel: ObservableObject {
                      birthDate: selectedDate,
                      notes: notesInput)
     }
+    
+    func atachPhotoData(data: Data?) {
+        playePhotoData = data
+    }
 }
 

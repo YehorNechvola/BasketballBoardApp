@@ -64,14 +64,16 @@ final class MyTeamViewModel: ObservableObject {
     }
     
     func movePlayerToOrFromBench(_ player: PlayerCore) {
-        let canMovePlayer = player.isStartingPlayer || startingPlayers.count < 5
-
-            if canMovePlayer {
-                storeManager.updatePlayerStarting(player)
-                myTeams = storeManager.fetchAllTeams()
-            } else {
-                shouldShowMessage = true
-            }
+        if player.isStartingPlayer || startingPlayers.count < 5 {
+            storeManager.updatePlayerStarting(player)
+            myTeams = storeManager.fetchAllTeams()
+        }
+    }
+    
+    func handleStartingLineupMessage(_ player: PlayerCore) {
+        guard startingPlayers.count > 4,
+              !player.isStartingPlayer else { return }
+        shouldShowMessage = true
     }
     
     func addNewTeam(name: String, imageData: Data? = nil) {
