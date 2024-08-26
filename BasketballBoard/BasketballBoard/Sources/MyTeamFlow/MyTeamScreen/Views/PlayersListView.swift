@@ -66,12 +66,14 @@ struct PlayersListView: View {
 private extension PlayersListView {
     func createPlayerSection(players: [PlayerCore], header: String) -> some View {
         Section {
-            ForEach(players, id: \.name) { player in
-                PlayerItemViewCell(player: player)
+            ForEach(players.indices, id: \.self) { index in
+                PlayerItemViewCell(player: players[index])
                     .swipeActions {
-                        createDeleteButton(for: player)
-                        createMoveButton(for: player)
+                        createDeleteButton(for: players[index])
+                        createMoveButton(for: players[index])
                     }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    .frame(height: 40)
             }
         } header: {
             Text(header)
@@ -92,9 +94,10 @@ private extension PlayersListView {
         Button() {
             cancelHiddingMessage()
             scheduleHideMessage()
-            
-            withAnimation(.spring) {
-                viewModel.movePlayerToOrFromBench(player)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation(.snappy) {
+                    viewModel.movePlayerToOrFromBench(player)
+                }
             }
             
         } label: {

@@ -12,7 +12,6 @@ struct PlayerItemViewCell: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            
             Image(.playerPlaceholder)
                 .resizable()
                 .scaledToFit()
@@ -20,10 +19,8 @@ struct PlayerItemViewCell: View {
                 .padding(EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6))
                 .background(Color.orange)
                 .clipShape(Circle())
-                
-            Text(player.name + " " + player.surname)
             
-//            Text("\(player.position.rawValue)")
+            Text(player.name + " " + player.surname)
             
             Spacer()
             

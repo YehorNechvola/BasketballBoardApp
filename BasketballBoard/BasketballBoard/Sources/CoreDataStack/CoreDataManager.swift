@@ -76,17 +76,15 @@ final class CoreDataStackManager{
         player.notes = playerEntity.notes
         player.photo = playerEntity.photoData
         
-        
-        let set = team.players?.allObjects as! [PlayerCore]
-        let countOfStarting = set.filter { $0.isStartingPlayer }.count
+        let playersSet = team.players?.allObjects as! [PlayerCore]
+        let countOfStarting = playersSet.filter { $0.isStartingPlayer }.count
         player.isStartingPlayer = countOfStarting < 5
         
         player.position = Int16(playerEntity.position.rawValue)
         player.number = playerEntity.playerNumber
         player.team = team
-        player.additionNumber = team.players?.count ?? 0
-        
-        team.addToPlayers(player)  
+        player.additionNumber = ((team.players as! Set<PlayerCore>).map { $0.additionNumber }.max() ?? 0) + 1
+        team.addToPlayers(player)
         
         saveContext()
     }

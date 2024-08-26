@@ -20,7 +20,6 @@ final class MyTeamViewModel: ObservableObject {
     @Published var createNewPlayerPressed = false
     @Published var shouldShowMessage = false
     
-    
     var currentTeam: TeamCore? {
         myTeams.first { $0.id == userDefaultsManager.currentTeamId }
     }
