@@ -10,6 +10,7 @@ import Combine
 
 struct PlayersListView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
+    @EnvironmentObject var coordinator: MyTeamFlowCoordinator
     @State private var cancellable: AnyCancellable?
     @State private var isPresentedActionSheet = false
     
@@ -67,13 +68,19 @@ private extension PlayersListView {
     func createPlayerSection(players: [PlayerCore], header: String) -> some View {
         Section {
             ForEach(players.indices, id: \.self) { index in
-                PlayerItemViewCell(player: players[index])
-                    .swipeActions {
-                        createDeleteButton(for: players[index])
-                        createMoveButton(for: players[index])
-                    }
-                    .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                    .frame(height: 40)
+                Button {
+                    viewModel.tapOnPlayer(players[index], with: coordinator)
+                } label: {
+                    PlayerItemViewCell(player: players[index])
+                        .contentShape(Rectangle())
+                        .frame(height: 40)
+                }
+                .buttonStyle(.plain)
+                .swipeActions {
+                    createDeleteButton(for: players[index])
+                    createMoveButton(for: players[index])
+                }
+                .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
             }
         } header: {
             Text(header)
@@ -116,7 +123,7 @@ private extension PlayersListView {
             Text("Create new team for adding players")
                 .foregroundStyle(.gray)
             Button {
-                viewModel.createNewTeamPressed.toggle()
+                viewModel.createNewTeamTap(with: coordinator)
             } label: {
                 Text("+new team")
                     .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))

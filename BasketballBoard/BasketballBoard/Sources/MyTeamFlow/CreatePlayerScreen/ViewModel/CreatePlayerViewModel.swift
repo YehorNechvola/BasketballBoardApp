@@ -70,7 +70,7 @@ final class CreatePlayerViewModel: ObservableObject {
         
        return Player(name: nameInput,
                      surname: surnameInput,
-                     playerNumber: Int16(numberPlayerToString) ?? 0,
+                     playerNumber: Int(numberPlayerToString) ?? 0,
                      position: selectedPosition,
                      photoData: playePhotoData,
                      birthDate: selectedDate,

@@ -6,18 +6,17 @@
 //
 
 import Foundation
-import Combine
 
-
+@MainActor
 final class MyTeamViewModel: ObservableObject {
     
     //MARK: - Properties
-    private let storeManager: CoreDataStackManager = .shared
+    private let storeManager: DataBaseManager = .shared
     private let userDefaultsManager: UserDefaultsManager = .shared
     
     @Published var myTeams: [TeamCore] = []
-    @Published var createNewTeamPressed = false
-    @Published var createNewPlayerPressed = false
+//    @Published var createNewTeamPressed = false
+//    @Published var createNewPlayerPressed = false
     @Published var shouldShowMessage = false
     
     var currentTeam: TeamCore? {
@@ -28,13 +27,13 @@ final class MyTeamViewModel: ObservableObject {
     var playerToDelete: PlayerCore?
     
     var startingPlayers: [PlayerCore] {
-        let playersArray: [PlayerCore] = (currentTeam?.players?.allObjects ?? []) as! [PlayerCore]
+        let playersArray: [PlayerCore] = currentTeam?.players ?? []
         
         return playersArray.filter { $0.isStartingPlayer }.sorted { $0.additionNumber < $1.additionNumber }
     }
     
     var benchPlayers: [PlayerCore] {
-        let playersArray: [PlayerCore] = (currentTeam?.players?.allObjects ?? []) as! [PlayerCore]
+        let playersArray: [PlayerCore] = (currentTeam?.players ?? [])
         
         return playersArray.filter { !$0.isStartingPlayer }.sorted { $0.additionNumber < $1.additionNumber }
     }
@@ -55,7 +54,7 @@ final class MyTeamViewModel: ObservableObject {
             return
         }
         
-        storeManager.deletePlayer(from: currentTeam, playerToDelete: player)
+        storeManager.deletePlayer(from: currentTeam, player: player)
         myTeams = storeManager.fetchAllTeams()
     }
     
@@ -89,6 +88,18 @@ final class MyTeamViewModel: ObservableObject {
         
         storeManager.addPlayer(to: currentTeam, playerEntity: player)
         myTeams = storeManager.fetchAllTeams()
+    }
+    
+    func tapOnPlayer(_ player: PlayerCore, with coordinator: MyTeamFlowCoordinator) {
+        coordinator.push(.playerProfile)
+    }
+    
+    func createNewTeamTap(with coordinator: MyTeamFlowCoordinator) {
+        coordinator.present(fullScreenCover: .createNewTeam)
+    }
+    
+    func createNewPlayerTap(with coordinator: MyTeamFlowCoordinator) {
+        coordinator.present(fullScreenCover: .addNewPlayer)
     }
     
     func editTeam() {

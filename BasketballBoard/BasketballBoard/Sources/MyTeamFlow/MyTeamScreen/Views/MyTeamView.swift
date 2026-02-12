@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MyTeamView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var coordinator: MyTeamFlowCoordinator
+    
     private var currentTeamPhoto: UIImage? {
         guard let photoData = viewModel.currentTeam?.photo else {
             return nil
@@ -20,13 +21,12 @@ struct MyTeamView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.brown.withAlphaComponent(0.3))
+                Color(.gray.opacity(0.3))
                     .ignoresSafeArea()
                 
                 PlayersListView()
-                
                     .toolbarBackground(.visible, for: .navigationBar)
-                    .toolbarBackground(.brown.opacity(0.5), for: .navigationBar)
+                    .toolbarBackground(.brown, for: .navigationBar)
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
@@ -55,7 +55,7 @@ struct MyTeamView: View {
                         
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
-                                viewModel.createNewPlayerPressed.toggle()
+                                viewModel.createNewPlayerTap(with: coordinator)
                             } label: {
                                 Image(systemName: "person.fill.badge.plus")
                                     .foregroundStyle(.black)
@@ -64,14 +64,6 @@ struct MyTeamView: View {
                             .opacity(viewModel.myTeams.isEmpty ? 0.5 : 1.0)
                         }
                     }
-            }
-            
-            .fullScreenCover(isPresented: $viewModel.createNewTeamPressed) {
-                CreateNewTeamScreen()
-            }
-            
-            .fullScreenCover(isPresented: $viewModel.createNewPlayerPressed) {
-                CreatePlayerView()
             }
         }
     }
