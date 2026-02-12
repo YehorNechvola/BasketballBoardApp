@@ -40,25 +40,6 @@ struct PlayersListView: View {
                 showStartingLinupMessage(proxy: proxy)
             }
         }
-        
-        .confirmationDialog("Removing player", isPresented: $isPresentedActionSheet) {
-            Button(role: .destructive) {
-                withAnimation {
-                    viewModel.removePlayer(player: viewModel.playerToDelete)
-                }
-                
-            } label: {
-                Text("Remove player")
-            }
-            
-            Button(role: .cancel) {
-                viewModel.setPlayerToDelete(nil)
-            } label: {
-                Text("Cancel")
-            }
-        } message: {
-            Text("Are you sure you want to remove \((viewModel.playerToDelete?.name ?? "") + " " + (viewModel.playerToDelete?.surname ?? ""))?")
-        }
     }
 }
 
@@ -81,6 +62,21 @@ private extension PlayersListView {
                     createMoveButton(for: players[index])
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                .alert("",
+                       isPresented: $isPresentedActionSheet,
+                       presenting: viewModel.playerToDelete) { player in
+                    
+                    Button("Remove player", role: .destructive) {
+                        withAnimation {
+                            viewModel.removePlayer(player: player)
+                        }
+                    }
+                    
+                    Button("Cancel", role: .cancel) { }
+                    
+                } message: { player in
+                    Text("Are you sure you want to remove \(player.name) \(player.surname)?")
+                }
             }
         } header: {
             Text(header)
@@ -168,9 +164,4 @@ private extension PlayersListView {
            cancellable?.cancel()
            cancellable = nil
        }
-}
-
-#Preview {
-    PlayersListView()
-        .environmentObject(MyTeamViewModel())
 }
