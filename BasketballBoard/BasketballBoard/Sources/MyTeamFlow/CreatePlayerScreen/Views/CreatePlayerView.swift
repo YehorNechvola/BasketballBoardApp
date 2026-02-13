@@ -8,7 +8,6 @@
 import SwiftUI
 import PhotosUI
 
-
 struct CreatePlayerView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
     @StateObject var localViewModel = CreatePlayerViewModel()
@@ -60,130 +59,10 @@ struct CreatePlayerView: View {
             VStack {
                 ScrollViewReader { reader in
                     List {
-                        Section {
-                            HStack {
-                                
-                                Spacer()
-                                
-                                VStack(alignment: .center) {
-                                    
-                                    PhotosPicker(selection: $photoPickerItem, matching: .images) {
-                                        Image(uiImage: croppedPlayerImage ?? UIImage(resource: .playerPlaceholder))
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: playerImageWidth, height: playerImageWidth)
-                                            .padding(EdgeInsets(top: playerImagePadding,
-                                                                leading: playerImagePadding,
-                                                                bottom: playerImagePadding,
-                                                                trailing: playerImagePadding))
-                                            .background(Color.white)
-                                            .clipShape(Circle())
-                                            .overlay(Circle()
-                                                .stroke(.black, lineWidth: 1)
-                                            )
-                                    }
-                                    
-                                    Text("add photo")
-                                }
-                                Spacer()
-                            }
-                        }
-                        .listRowBackground(Color.clear)
-                        
-                        Section {
-                            TextField("Name", text: binding(for: \.nameInput, default: ""))
-                                .id(nameCellId)
-                                .submitLabel(.done)
-                                .focused($isNameCellFocused)
-                            TextField("Surname", text: binding(for: \.surnameInput, default: ""))
-                                .submitLabel(.done)
-                                .focused($isSurnameCellFocused)
-                            HStack {
-                                Text(localViewModel.selectedDateToString ?? "Date of birth")
-                                    .foregroundStyle(Color(uiColor: dateTextColor))
-                                    .onChange(of: localViewModel.shouldShowDatePicker) { _, newValue in
-                                        scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
-                                    }
-                                Spacer()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .background()
-                            .onTapGesture {
-                                unfocusAllTextFields()
-                                localViewModel.shouldShowDatePicker.toggle()
-                                scrollToRow(by: localViewModel.shouldShowDatePicker ? lastCellId : nameCellId, reader: reader)
-                            }
-                            
-                            Menu {
-                                ForEach(Player.PlayerPosition.allCases) { position in
-                                    Button {
-                                        localViewModel.selectedPosition = position
-                                    } label: {
-                                        HStack {
-                                            Text(position.positionToString).tag(position)
-                                            
-                                            Spacer()
-                                            
-                                            if position == localViewModel.selectedPosition {
-                                                Image(systemName: "checkmark")
-                                            }
-                                        }
-                                    }
-                                }
-                            } label: {
-                                HStack {
-                                    Text("\(localViewModel.playerPositionText)")
-                                    Spacer()
-                                }
-                                .frame(maxWidth: .infinity)
-                                .background()
-                                .onTapGesture {
-                                    unfocusAllTextFields()
-                                }
-                                
-                            }
-                            .foregroundStyle(Color(uiColor: playerPositionTextColor))
-                            
-                            
-                            HStack {
-                                Text("Player number:")
-                                    .foregroundStyle(Color(uiColor: .placeholderText))
-                                Text(localViewModel.numberPlayerToString)
-                                    .onChange(of: localViewModel.shouldShowNumberPicker) { _, newValue in
-                                        scrollToRow(by: newValue ? lastCellId : nameCellId, reader: reader)
-                                    }
-                                Spacer()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .background()
-                            .onTapGesture {
-                                unfocusAllTextFields()
-                                localViewModel.shouldShowNumberPicker.toggle()
-                            }
-                        }
-                        
-                        Section {
-                            TextField("Notes",
-                                      text: binding(for: \.notesInput, default: ""),
-                                      axis: .vertical)
-                                .focused($isNotesCellFocused)
-                                .onChange(of: isNotesCellFocused) { _, newValue in
-                                    guard newValue else { return }
-                                    scrollToRow(by: lastCellId, reader: reader)
-                                }
-                                .onChange(of: localViewModel.notesInput) { _, _ in
-                                    scrollToRow(by: lastCellId, reader: reader)
-                                }
-                        }
-                        
-                        //Helper cell for scrolling for last notes textfield cell
-                        Section {
-                            Color.clear
-                                .id(lastCellId)
-                                .frame(height: 270)
-                                .listRowBackground(Color.clear)
-                                .background(Color.clear)
-                        }
+                        photoPickerSection
+                        makePlayerInfoSection(proxy: reader)
+                        makeNotesSection(proxy: reader)
+                        makeEmptySection()
                     }
                     
                     .scrollDismissesKeyboard(.interactively)
@@ -261,6 +140,141 @@ struct CreatePlayerView: View {
 
 //MARK: - Private methods
 private extension CreatePlayerView {
+    var photoPickerSection: some View {
+        Section {
+            HStack {
+                Spacer()
+                
+                VStack(alignment: .center) {
+                    
+                    PhotosPicker(selection: $photoPickerItem, matching: .images) {
+                        Image(uiImage: croppedPlayerImage ?? UIImage(resource: .playerPlaceholder))
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: playerImageWidth, height: playerImageWidth)
+                            .padding(EdgeInsets(top: playerImagePadding,
+                                                leading: playerImagePadding,
+                                                bottom: playerImagePadding,
+                                                trailing: playerImagePadding))
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .overlay(Circle()
+                                .stroke(.black, lineWidth: 1)
+                            )
+                    }
+                    
+                    Text("add photo")
+                }
+                Spacer()
+            }
+        }
+        .listRowBackground(Color.clear)
+    }
+    
+    @ViewBuilder
+    func makePlayerInfoSection(proxy: ScrollViewProxy) -> some View {
+        Section {
+            TextField("Name", text: binding(for: \.nameInput, default: ""))
+                .id(nameCellId)
+                .submitLabel(.done)
+                .focused($isNameCellFocused)
+            TextField("Surname", text: binding(for: \.surnameInput, default: ""))
+                .submitLabel(.done)
+                .focused($isSurnameCellFocused)
+            HStack {
+                Text(localViewModel.selectedDateToString ?? "Date of birth")
+                    .foregroundStyle(Color(uiColor: dateTextColor))
+                    .onChange(of: localViewModel.shouldShowDatePicker) { _, newValue in
+                        scrollToRow(by: newValue ? lastCellId : nameCellId, reader: proxy)
+                    }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .background()
+            .onTapGesture {
+                unfocusAllTextFields()
+                localViewModel.shouldShowDatePicker.toggle()
+                scrollToRow(by: localViewModel.shouldShowDatePicker ? lastCellId : nameCellId, reader: proxy)
+            }
+            
+            Menu {
+                ForEach(Player.PlayerPosition.allCases) { position in
+                    Button {
+                        localViewModel.selectedPosition = position
+                    } label: {
+                        HStack {
+                            Text(position.positionToString).tag(position)
+                            
+                            Spacer()
+                            
+                            if position == localViewModel.selectedPosition {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            } label: {
+                HStack {
+                    Text("\(localViewModel.playerPositionText)")
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                .background()
+                .onTapGesture {
+                    unfocusAllTextFields()
+                }
+                
+            }
+            .foregroundStyle(Color(uiColor: playerPositionTextColor))
+            
+            
+            HStack {
+                Text("Player number:")
+                    .foregroundStyle(Color(uiColor: .placeholderText))
+                Text(localViewModel.numberPlayerToString)
+                    .onChange(of: localViewModel.shouldShowNumberPicker) { _, newValue in
+                        scrollToRow(by: newValue ? lastCellId : nameCellId, reader: proxy)
+                    }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .background()
+            .onTapGesture {
+                unfocusAllTextFields()
+                localViewModel.shouldShowNumberPicker.toggle()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func makeNotesSection(proxy: ScrollViewProxy) -> some View {
+        Section {
+            TextField("Notes",
+                      text: binding(for: \.notesInput, default: ""),
+                      axis: .vertical)
+            .focused($isNotesCellFocused)
+            .onChange(of: isNotesCellFocused) { _, newValue in
+                guard newValue else { return }
+                scrollToRow(by: lastCellId, reader: proxy)
+            }
+            .onChange(of: localViewModel.notesInput) { _, _ in
+                scrollToRow(by: lastCellId, reader: proxy)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func makeEmptySection() -> some View {
+        //Helper cell for scrolling for last notes textfield cell
+        Section {
+            Color.clear
+                .id(lastCellId)
+                .frame(height: 270)
+                .listRowBackground(Color.clear)
+                .background(Color.clear)
+        }
+    }
+    
     func unfocusAllTextFields() {
     isNameCellFocused = false
     isSurnameCellFocused = false

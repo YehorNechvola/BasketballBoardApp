@@ -15,7 +15,6 @@ final class PlayerCore {
     var surname: String
     var birthDay: Date
     var notes: String?
-    var photo: Data?
     
     var isStartingPlayer: Bool
     var position: Int
@@ -28,7 +27,6 @@ final class PlayerCore {
         surname: String,
         birthDay: Date,
         notes: String?,
-        photo: Data?,
         isStartingPlayer: Bool,
         position: Int,
         number: Int,
@@ -39,7 +37,6 @@ final class PlayerCore {
         self.surname = surname
         self.birthDay = birthDay
         self.notes = notes
-        self.photo = photo
         self.isStartingPlayer = isStartingPlayer
         self.position = position
         self.number = number

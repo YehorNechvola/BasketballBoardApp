@@ -11,27 +11,23 @@ struct PlayerItemViewCell: View {
     
     var player: PlayerCore
     private var playerImage: Image {
-        guard let imageData = player.photo,
-              let uiImage = UIImage(data: imageData) else {
-            return Image(.playerPlaceholder)
-        }
-        return Image(uiImage: uiImage)
+        return Image(.playerPlaceholder)
     }
     
     private var playerImagePadding: CGFloat {
-        if let _ =  player.photo {
-            return 0
-        } else {
+//        if let _ =  player.photo {
+//            return 0
+//        } else {
             return 6
-        }
+//        }
     }
     
     private var playerImageWidth: CGFloat {
-        if let _ = player.photo {
-            return 35
-        } else {
+//        if let _ = player.photo {
+//            return 35
+//        } else {
             return 23
-        }
+//        }
     }
     
     var body: some View {

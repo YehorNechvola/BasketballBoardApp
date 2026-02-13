@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		341326D32F3E57C200BB1A86 /* Date+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341326D22F3E57C200BB1A86 /* Date+Age.swift */; };
 		348AB4292F3CD58000B50C48 /* PlayerCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB4282F3CD58000B50C48 /* PlayerCore.swift */; };
 		348AB42B2F3CD5CA00B50C48 /* TeamCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB42A2F3CD5CA00B50C48 /* TeamCore.swift */; };
 		348AB42D2F3CD63900B50C48 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB42C2F3CD63900B50C48 /* DataBaseManager.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		341326D22F3E57C200BB1A86 /* Date+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Age.swift"; sourceTree = "<group>"; };
 		348AB4282F3CD58000B50C48 /* PlayerCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCore.swift; sourceTree = "<group>"; };
 		348AB42A2F3CD5CA00B50C48 /* TeamCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCore.swift; sourceTree = "<group>"; };
 		348AB42C2F3CD63900B50C48 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			children = (
 				A60CD49B2C0788C400CC8BC1 /* UIView+DropShadow.swift */,
 				A61C1DA32C6F6B3B00472F61 /* UIApplicatin+HideKeyboard.swift */,
+				341326D22F3E57C200BB1A86 /* Date+Age.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 			files = (
 				A6BFE36A2C747F0C00DD2753 /* TwoColumnNumberPickerView.swift in Sources */,
 				A62638492C0DC7BE00FB6BE2 /* MyTeamViewModel.swift in Sources */,
+				341326D32F3E57C200BB1A86 /* Date+Age.swift in Sources */,
 				34CC693C2F3E175D00A72551 /* MyTeamCoordinatorView.swift in Sources */,
 				A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */,
 				A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */,

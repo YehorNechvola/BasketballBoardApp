@@ -52,8 +52,7 @@ final class DataBaseManager {
         
         let team = TeamCore(
             id: id,
-            name: name,
-            photo: photoData
+            name: name
         )
         
         context.insert(team)
@@ -64,9 +63,7 @@ final class DataBaseManager {
     
     // MARK: - Add Player
     func addPlayer(to team: TeamCore, playerEntity: Player) {
-        
         let startingCount = team.players.filter { $0.isStartingPlayer }.count
-        
         let additionNumber = (team.players.map { $0.additionNumber }.max() ?? 0) + 1
         
         let player = PlayerCore(
@@ -75,7 +72,6 @@ final class DataBaseManager {
             surname: playerEntity.surname,
             birthDay: playerEntity.birthDate,
             notes: playerEntity.notes,
-            photo: playerEntity.photoData,
             isStartingPlayer: startingCount < 5,
             position: playerEntity.position.rawValue,
             number: playerEntity.playerNumber,

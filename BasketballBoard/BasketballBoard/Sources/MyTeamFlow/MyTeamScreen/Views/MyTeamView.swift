@@ -11,12 +11,7 @@ struct MyTeamView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
     @EnvironmentObject var coordinator: MyTeamFlowCoordinator
     
-    private var currentTeamPhoto: UIImage? {
-        guard let photoData = viewModel.currentTeam?.photo else {
-            return nil
-        }
-        return UIImage(data: photoData)
-    }
+    private var currentTeamPhoto: UIImage?
     
     var body: some View {
         NavigationStack {

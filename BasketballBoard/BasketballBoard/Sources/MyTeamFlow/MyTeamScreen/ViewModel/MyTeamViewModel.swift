@@ -15,8 +15,6 @@ final class MyTeamViewModel: ObservableObject {
     private let userDefaultsManager: UserDefaultsManager = .shared
     
     @Published var myTeams: [TeamCore] = []
-//    @Published var createNewTeamPressed = false
-//    @Published var createNewPlayerPressed = false
     @Published var shouldShowMessage = false
     
     var currentTeam: TeamCore? {
@@ -36,6 +34,13 @@ final class MyTeamViewModel: ObservableObject {
         let playersArray: [PlayerCore] = (currentTeam?.players ?? [])
         
         return playersArray.filter { !$0.isStartingPlayer }.sorted { $0.additionNumber < $1.additionNumber }
+    }
+    
+    var selectedPlayerProfile: PlayerCore?
+    var playerProfileDisplayAge: String {
+        guard let selectedPlayerProfile else { return "Unknown" }
+        
+        return "Age: \(selectedPlayerProfile.birthDay.age) (\(selectedPlayerProfile.birthDay.dateToString(format: "yyyy.MM.dd") ?? "Unknown"))"
     }
     
     //MARK: - Init
@@ -91,6 +96,7 @@ final class MyTeamViewModel: ObservableObject {
     }
     
     func tapOnPlayer(_ player: PlayerCore, with coordinator: MyTeamFlowCoordinator) {
+        selectedPlayerProfile = player
         coordinator.push(.playerProfile)
     }
     

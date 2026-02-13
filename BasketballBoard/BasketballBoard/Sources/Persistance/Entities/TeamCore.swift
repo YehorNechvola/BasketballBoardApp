@@ -12,14 +12,12 @@ import SwiftData
 final class TeamCore {
     @Attribute(.unique) var id: String
     var name: String
-    var photo: Data?
     
     @Relationship(deleteRule: .cascade)
     var players: [PlayerCore] = []
     
-    init(id: String, name: String, photo: Data?) {
+    init(id: String, name: String) {
         self.id = id
         self.name = name
-        self.photo = photo
     }
 }
