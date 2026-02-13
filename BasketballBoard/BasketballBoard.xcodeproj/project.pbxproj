@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3402954B2F3FBCFC002E5DFA /* CropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3402954A2F3FBCFC002E5DFA /* CropImageView.swift */; };
 		341326D32F3E57C200BB1A86 /* Date+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341326D22F3E57C200BB1A86 /* Date+Age.swift */; };
 		348AB4292F3CD58000B50C48 /* PlayerCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB4282F3CD58000B50C48 /* PlayerCore.swift */; };
 		348AB42B2F3CD5CA00B50C48 /* TeamCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB42A2F3CD5CA00B50C48 /* TeamCore.swift */; };
@@ -37,12 +38,12 @@
 		A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638512C0DF31500FB6BE2 /* PlayersListView.swift */; };
 		A62638542C0EEC3900FB6BE2 /* PlayerItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */; };
 		A6680FA02C78BDA1008B9031 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6680F9F2C78BDA1008B9031 /* UserDefaultsManager.swift */; };
-		A69C123E2C255A4000CBE95E /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69C123D2C255A4000CBE95E /* CropView.swift */; };
 		A6BFE36A2C747F0C00DD2753 /* TwoColumnNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */; };
 		A6BFE36C2C74A69200DD2753 /* CreatePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFE36B2C74A69200DD2753 /* CreatePlayerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3402954A2F3FBCFC002E5DFA /* CropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageView.swift; sourceTree = "<group>"; };
 		341326D22F3E57C200BB1A86 /* Date+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Age.swift"; sourceTree = "<group>"; };
 		348AB4282F3CD58000B50C48 /* PlayerCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCore.swift; sourceTree = "<group>"; };
 		348AB42A2F3CD5CA00B50C48 /* TeamCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCore.swift; sourceTree = "<group>"; };
@@ -75,7 +76,6 @@
 		A62638512C0DF31500FB6BE2 /* PlayersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListView.swift; sourceTree = "<group>"; };
 		A62638532C0EEC3900FB6BE2 /* PlayerItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemViewCell.swift; sourceTree = "<group>"; };
 		A6680F9F2C78BDA1008B9031 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		A69C123D2C255A4000CBE95E /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
 		A6BFE3692C747F0C00DD2753 /* TwoColumnNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoColumnNumberPickerView.swift; sourceTree = "<group>"; };
 		A6BFE36B2C74A69200DD2753 /* CreatePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlayerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		340295492F3FBCDB002E5DFA /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				3402954A2F3FBCFC002E5DFA /* CropImageView.swift */,
+			);
+			path = SharedViews;
+			sourceTree = "<group>";
+		};
 		348AB4262F3CD55C00B50C48 /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +195,7 @@
 				A62638402C0DC6E100FB6BE2 /* MyTeamFlow */,
 				A61C1D9C2C6F40C100472F61 /* Services */,
 				A60CD49A2C0788A800CC8BC1 /* Extensions */,
+				340295492F3FBCDB002E5DFA /* SharedViews */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -252,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				A60A5F212C21B55900AA040D /* CreateNewTeamScreen.swift */,
-				A69C123D2C255A4000CBE95E /* CropView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -421,6 +429,7 @@
 				A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */,
 				A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */,
 				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
+				3402954B2F3FBCFC002E5DFA /* CropImageView.swift in Sources */,
 				A61C1D9E2C6F40F500472F61 /* DateFormatterService.swift in Sources */,
 				348AB42B2F3CD5CA00B50C48 /* TeamCore.swift in Sources */,
 				34CC693A2F3E172600A72551 /* MyTeamFlowCoordinator.swift in Sources */,
@@ -438,7 +447,6 @@
 				34CC691F2F3E102300A72551 /* PlayerProfileView.swift in Sources */,
 				A60CD4972C07877A00CC8BC1 /* PlayerView.swift in Sources */,
 				A60CD4992C0787C500CC8BC1 /* BoardScreenPointer.swift in Sources */,
-				A69C123E2C255A4000CBE95E /* CropView.swift in Sources */,
 				34CC69352F3E147C00A72551 /* BoardFlowCoordinator.swift in Sources */,
 				A61C1DA42C6F6B3B00472F61 /* UIApplicatin+HideKeyboard.swift in Sources */,
 			);

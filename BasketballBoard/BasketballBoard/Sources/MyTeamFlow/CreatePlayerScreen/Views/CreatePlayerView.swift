@@ -89,16 +89,19 @@ struct CreatePlayerView: View {
             }
             
             .fullScreenCover(isPresented: $localViewModel.shouldShowCropView) {
-                CropView(image: playerImage!,
-                         maskShape: .circle,
-                         configuration: SwiftyCropConfiguration()) { croppedImage in
-                    croppedPlayerImage = croppedImage
-                    localViewModel.shouldShowCropView.toggle()
-                } onCancelCompletion: {
-                    localViewModel.shouldShowCropView.toggle()
+                CropImageView(image: playerImage) { image, status in
+                    croppedPlayerImage = image
                 }
-                .toolbar(.hidden)
-                .transition(.opacity)
+//                CropView(image: playerImage!,
+//                         maskShape: .circle,
+//                         configuration: SwiftyCropConfiguration()) { croppedImage in
+//                    croppedPlayerImage = croppedImage
+//                    localViewModel.shouldShowCropView.toggle()
+//                } onCancelCompletion: {
+//                    localViewModel.shouldShowCropView.toggle()
+//                }
+//                .toolbar(.hidden)
+//                .transition(.opacity)
             }
             
             .sheet(isPresented: $localViewModel.shouldShowDatePicker) {

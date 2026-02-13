@@ -67,6 +67,7 @@ private extension PlayersListView {
                        presenting: viewModel.playerToDelete) { player in
                     
                     Button("Remove player", role: .destructive) {
+                        isPresentedActionSheet = false
                         withAnimation {
                             viewModel.removePlayer(player: player)
                         }

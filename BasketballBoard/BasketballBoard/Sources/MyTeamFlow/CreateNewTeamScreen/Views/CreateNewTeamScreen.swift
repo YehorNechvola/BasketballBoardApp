@@ -72,18 +72,18 @@ struct CreateNewTeamScreen: View {
                 photoPickerItem = nil
             }
             
-            .fullScreenCover(isPresented: $shouldShowCropView) {
-                CropView(image: teamImage!,
-                         maskShape: .circle,
-                         configuration: SwiftyCropConfiguration()) { croppedImage in
-                    croppedTeamImage = croppedImage
-                    shouldShowCropView.toggle()
-                } onCancelCompletion: {
-                    shouldShowCropView.toggle()
-                }
-                .toolbar(.hidden)
-                .transition(.opacity)
-            }
+//            .fullScreenCover(isPresented: $shouldShowCropView) {
+//                CropView(image: teamImage!,
+//                         maskShape: .circle,
+//                         configuration: SwiftyCropConfiguration()) { croppedImage in
+//                    croppedTeamImage = croppedImage
+//                    shouldShowCropView.toggle()
+//                } onCancelCompletion: {
+//                    shouldShowCropView.toggle()
+//                }
+//                .toolbar(.hidden)
+//                .transition(.opacity)
+//            }
             
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

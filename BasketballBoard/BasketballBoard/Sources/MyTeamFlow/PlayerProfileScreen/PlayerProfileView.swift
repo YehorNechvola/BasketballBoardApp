@@ -42,6 +42,19 @@ struct PlayerProfileView: View {
         .background(Color.gray.opacity(0.3))
     }
     
+    private var playerNumberView: some View {
+        ZStack {
+            Image(.topIcon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 37)
+            Text("\(player.number)")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(Color.red)
+                .offset(y: 4)
+        }
+    }
+    
     @ViewBuilder
     private func createTopPlayerView() -> some View {
             Image(uiImage: playerUIImage ?? UIImage(resource: .playerPlaceholder))
@@ -55,10 +68,14 @@ struct PlayerProfileView: View {
     private func createPlayerInfoView() -> some View {
         HStack {
             LazyVStack(alignment: .leading, spacing: 5) {
-                Text("\(player.name) \(player.surname)")
-                    .font(.system(size: 21, weight: .bold, design: .default))
-                    Text(teamViewModel.playerProfileDisplayAge)
-                    Text(playerPosition)
+                LazyHStack(alignment: .bottom) {
+                    Text("\(player.name) \(player.surname)")
+                        .font(.system(size: 21, weight: .bold))
+                    playerNumberView
+                }
+                
+                Text(teamViewModel.playerProfileDisplayAge)
+                Text(playerPosition)
                 
                 if let notes = player.notes, !notes.isEmpty {
                     Text(notes)
