@@ -20,6 +20,7 @@ struct CreatePlayerView: View {
     @State private var photoPickerItem: PhotosPickerItem?
     @State private var playerImage: UIImage?
     @State private var croppedPlayerImage: UIImage?
+    @State private var cropImageTapped: Bool = false
     
     private var nameCellId: String { "nameCellId" }
     private var lastCellId: String { "lastCellId" }
@@ -89,19 +90,9 @@ struct CreatePlayerView: View {
             }
             
             .fullScreenCover(isPresented: $localViewModel.shouldShowCropView) {
-                CropImageView(image: playerImage) { image, status in
-                    croppedPlayerImage = image
+                CropScreen(image: playerImage!, cropButtonTapped: $cropImageTapped) { cropped in
+                    croppedPlayerImage = cropped
                 }
-//                CropView(image: playerImage!,
-//                         maskShape: .circle,
-//                         configuration: SwiftyCropConfiguration()) { croppedImage in
-//                    croppedPlayerImage = croppedImage
-//                    localViewModel.shouldShowCropView.toggle()
-//                } onCancelCompletion: {
-//                    localViewModel.shouldShowCropView.toggle()
-//                }
-//                .toolbar(.hidden)
-//                .transition(.opacity)
             }
             
             .sheet(isPresented: $localViewModel.shouldShowDatePicker) {

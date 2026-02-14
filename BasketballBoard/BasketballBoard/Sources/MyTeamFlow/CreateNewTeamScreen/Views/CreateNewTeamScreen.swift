@@ -17,6 +17,7 @@ struct CreateNewTeamScreen: View {
     @State private var teamNameText: String = ""
     @State private var teamImage: UIImage?
     @State private var croppedTeamImage: UIImage?
+    @State private var cropImageTapped = false
     
     var body: some View {
         NavigationStack {
@@ -72,18 +73,11 @@ struct CreateNewTeamScreen: View {
                 photoPickerItem = nil
             }
             
-//            .fullScreenCover(isPresented: $shouldShowCropView) {
-//                CropView(image: teamImage!,
-//                         maskShape: .circle,
-//                         configuration: SwiftyCropConfiguration()) { croppedImage in
-//                    croppedTeamImage = croppedImage
-//                    shouldShowCropView.toggle()
-//                } onCancelCompletion: {
-//                    shouldShowCropView.toggle()
-//                }
-//                .toolbar(.hidden)
-//                .transition(.opacity)
-//            }
+            .fullScreenCover(isPresented: $shouldShowCropView) {
+                CropScreen(image: teamImage!, cropButtonTapped: $cropImageTapped) { cropped in
+                    croppedTeamImage = cropped
+                }
+            }
             
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

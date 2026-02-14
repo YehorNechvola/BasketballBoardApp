@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3402954B2F3FBCFC002E5DFA /* CropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3402954A2F3FBCFC002E5DFA /* CropImageView.swift */; };
+		340295622F408B79002E5DFA /* CroppImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340295612F408B79002E5DFA /* CroppImageViewController.swift */; };
+		340295642F408E13002E5DFA /* CropImageWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340295632F408E13002E5DFA /* CropImageWrapperView.swift */; };
+		340295662F409404002E5DFA /* CropScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340295652F409404002E5DFA /* CropScreen.swift */; };
 		341326D32F3E57C200BB1A86 /* Date+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341326D22F3E57C200BB1A86 /* Date+Age.swift */; };
 		348AB4292F3CD58000B50C48 /* PlayerCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB4282F3CD58000B50C48 /* PlayerCore.swift */; };
 		348AB42B2F3CD5CA00B50C48 /* TeamCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB42A2F3CD5CA00B50C48 /* TeamCore.swift */; };
@@ -44,6 +47,9 @@
 
 /* Begin PBXFileReference section */
 		3402954A2F3FBCFC002E5DFA /* CropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageView.swift; sourceTree = "<group>"; };
+		340295612F408B79002E5DFA /* CroppImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroppImageViewController.swift; sourceTree = "<group>"; };
+		340295632F408E13002E5DFA /* CropImageWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageWrapperView.swift; sourceTree = "<group>"; };
+		340295652F409404002E5DFA /* CropScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropScreen.swift; sourceTree = "<group>"; };
 		341326D22F3E57C200BB1A86 /* Date+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Age.swift"; sourceTree = "<group>"; };
 		348AB4282F3CD58000B50C48 /* PlayerCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCore.swift; sourceTree = "<group>"; };
 		348AB42A2F3CD5CA00B50C48 /* TeamCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCore.swift; sourceTree = "<group>"; };
@@ -94,9 +100,20 @@
 		340295492F3FBCDB002E5DFA /* SharedViews */ = {
 			isa = PBXGroup;
 			children = (
+				340295602F408B50002E5DFA /* CropImageView */,
 				3402954A2F3FBCFC002E5DFA /* CropImageView.swift */,
 			);
 			path = SharedViews;
+			sourceTree = "<group>";
+		};
+		340295602F408B50002E5DFA /* CropImageView */ = {
+			isa = PBXGroup;
+			children = (
+				340295612F408B79002E5DFA /* CroppImageViewController.swift */,
+				340295632F408E13002E5DFA /* CropImageWrapperView.swift */,
+				340295652F409404002E5DFA /* CropScreen.swift */,
+			);
+			path = CropImageView;
 			sourceTree = "<group>";
 		};
 		348AB4262F3CD55C00B50C48 /* Persistance */ = {
@@ -426,12 +443,14 @@
 				A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */,
 				34CC69372F3E15C600A72551 /* BoardCoordinatorView.swift in Sources */,
 				A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */,
+				340295662F409404002E5DFA /* CropScreen.swift in Sources */,
 				A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */,
 				A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */,
 				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
 				3402954B2F3FBCFC002E5DFA /* CropImageView.swift in Sources */,
 				A61C1D9E2C6F40F500472F61 /* DateFormatterService.swift in Sources */,
 				348AB42B2F3CD5CA00B50C48 /* TeamCore.swift in Sources */,
+				340295642F408E13002E5DFA /* CropImageWrapperView.swift in Sources */,
 				34CC693A2F3E172600A72551 /* MyTeamFlowCoordinator.swift in Sources */,
 				A6680FA02C78BDA1008B9031 /* UserDefaultsManager.swift in Sources */,
 				A61935FF2C6636A700416DFB /* CreatePlayerView.swift in Sources */,
@@ -449,6 +468,7 @@
 				A60CD4992C0787C500CC8BC1 /* BoardScreenPointer.swift in Sources */,
 				34CC69352F3E147C00A72551 /* BoardFlowCoordinator.swift in Sources */,
 				A61C1DA42C6F6B3B00472F61 /* UIApplicatin+HideKeyboard.swift in Sources */,
+				340295622F408B79002E5DFA /* CroppImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
