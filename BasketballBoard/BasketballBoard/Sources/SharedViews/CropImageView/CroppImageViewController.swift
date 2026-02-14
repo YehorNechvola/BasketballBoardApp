@@ -102,19 +102,31 @@ final class CropImageViewController: UIViewController {
     }
     
     private func applyOverlayMask() {
-        let path = UIBezierPath(rect: overlayView.bounds)
-        let circlePath = UIBezierPath(
-            ovalIn: cropContainerView.frame
-        )
+        let overlayBounds = overlayView.bounds
+        let cropFrame = cropContainerView.frame
+        let lineWidth: CGFloat = 2
         
-        path.append(circlePath)
-        path.usesEvenOddFillRule = true
+        let maskPath = UIBezierPath(rect: overlayBounds)
         
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        mask.fillRule = .evenOdd
+        let insetCropFrame = cropFrame.insetBy(dx: lineWidth / 2, dy: lineWidth / 2)
+        let circlePath = UIBezierPath(ovalIn: insetCropFrame)
         
-        overlayView.layer.mask = mask
+        maskPath.append(circlePath)
+        maskPath.usesEvenOddFillRule = true
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = maskPath.cgPath
+        maskLayer.fillRule = .evenOdd
+        
+        overlayView.layer.mask = maskLayer
+        
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = circlePath.cgPath
+        borderLayer.strokeColor = UIColor.white.cgColor
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.lineWidth = lineWidth
+        
+        overlayView.layer.addSublayer(borderLayer)
     }
     
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {

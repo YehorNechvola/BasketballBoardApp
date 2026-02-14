@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3402954B2F3FBCFC002E5DFA /* CropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3402954A2F3FBCFC002E5DFA /* CropImageView.swift */; };
 		340295622F408B79002E5DFA /* CroppImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340295612F408B79002E5DFA /* CroppImageViewController.swift */; };
 		340295642F408E13002E5DFA /* CropImageWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340295632F408E13002E5DFA /* CropImageWrapperView.swift */; };
 		340295662F409404002E5DFA /* CropScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340295652F409404002E5DFA /* CropScreen.swift */; };
@@ -46,7 +45,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3402954A2F3FBCFC002E5DFA /* CropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageView.swift; sourceTree = "<group>"; };
 		340295612F408B79002E5DFA /* CroppImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroppImageViewController.swift; sourceTree = "<group>"; };
 		340295632F408E13002E5DFA /* CropImageWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageWrapperView.swift; sourceTree = "<group>"; };
 		340295652F409404002E5DFA /* CropScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropScreen.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				340295602F408B50002E5DFA /* CropImageView */,
-				3402954A2F3FBCFC002E5DFA /* CropImageView.swift */,
 			);
 			path = SharedViews;
 			sourceTree = "<group>";
@@ -447,7 +444,6 @@
 				A62638522C0DF31500FB6BE2 /* PlayersListView.swift in Sources */,
 				A60CD4A02C07896000CC8BC1 /* BoardViewModel.swift in Sources */,
 				A60CD4952C07871700CC8BC1 /* BoardInstaller.swift in Sources */,
-				3402954B2F3FBCFC002E5DFA /* CropImageView.swift in Sources */,
 				A61C1D9E2C6F40F500472F61 /* DateFormatterService.swift in Sources */,
 				348AB42B2F3CD5CA00B50C48 /* TeamCore.swift in Sources */,
 				340295642F408E13002E5DFA /* CropImageWrapperView.swift in Sources */,
