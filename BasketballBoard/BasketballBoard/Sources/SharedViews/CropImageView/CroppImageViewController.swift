@@ -12,7 +12,7 @@ final class CropImageViewController: UIViewController {
     private var currentScale: CGFloat = 1
     private var gestureStartScale: CGFloat = 1
     private let minScale: CGFloat = 1
-    private let maxScale: CGFloat = 4
+    private let maxScale: CGFloat = 3
     private let elasticity: CGFloat = 0.25
     
     private lazy var cropContainerView: UIView = {
@@ -164,6 +164,7 @@ final class CropImageViewController: UIViewController {
                
            case .ended, .cancelled, .failed:
                bounceScaleIfNeeded()
+            adjustImageIfNeeded()
                
            default:
                break

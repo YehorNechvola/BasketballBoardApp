@@ -35,7 +35,6 @@ struct BasketballBoardApp: App {
                         Image(systemName: "gearshape.fill")
                         Text("Preferences")
                     }
-                    
             }
             .tint(.black)
             .onAppear() {
