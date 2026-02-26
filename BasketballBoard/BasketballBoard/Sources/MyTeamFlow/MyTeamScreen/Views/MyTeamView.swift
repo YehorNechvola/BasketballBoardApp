@@ -10,8 +10,11 @@ import SwiftUI
 struct MyTeamView: View {
     @EnvironmentObject var viewModel: MyTeamViewModel
     @EnvironmentObject var coordinator: MyTeamFlowCoordinator
+    @State private var currentTeamPhoto: UIImage? = nil
     
-    private var currentTeamPhoto: UIImage?
+    private var currentTeam: TeamCore? {
+        viewModel.currentTeam
+    }
     
     var body: some View {
         NavigationStack {
@@ -31,8 +34,15 @@ struct MyTeamView: View {
                                     Image(uiImage: currentTeamPhoto ?? UIImage(resource: .ballIcon))
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: 30, height: 30)
+                                        .frame(width: 38, height: 38)
+                                        .clipShape(Circle())
                                         .foregroundStyle(.black)
+                                        .onAppear {
+                                            updateTeamPhoto()
+                                        }
+                                        .onChange(of: viewModel.myTeams) { _ , _ in
+                                            updateTeamPhoto()
+                                        }
                                         
                                     Text(viewModel.currentTeam?.name ?? "Current team")
                                         .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
@@ -60,6 +70,19 @@ struct MyTeamView: View {
                         }
                     }
             }
+        }
+    }
+    
+    private func updateTeamPhoto() {
+        guard let currentTeam = viewModel.currentTeam else { return }
+        Task {
+            guard let data = await viewModel.getPhotoData(by: currentTeam.teamId) else {
+                currentTeamPhoto = nil
+                return
+            }
+            let image = UIImage(data: data)
+            
+            currentTeamPhoto = image
         }
     }
 }

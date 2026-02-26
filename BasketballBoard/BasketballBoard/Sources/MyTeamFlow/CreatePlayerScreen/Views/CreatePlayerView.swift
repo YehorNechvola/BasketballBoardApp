@@ -142,14 +142,10 @@ private extension CreatePlayerView {
                 VStack(alignment: .center) {
                     
                     PhotosPicker(selection: $photoPickerItem, matching: .images) {
-                        Image(uiImage: croppedPlayerImage ?? UIImage(resource: .playerPlaceholder))
+                        Image(uiImage: croppedPlayerImage ?? UIImage(resource: .player))
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: playerImageWidth, height: playerImageWidth)
-                            .padding(EdgeInsets(top: playerImagePadding,
-                                                leading: playerImagePadding,
-                                                bottom: playerImagePadding,
-                                                trailing: playerImagePadding))
                             .background(Color.white)
                             .clipShape(Circle())
                             .overlay(Circle()

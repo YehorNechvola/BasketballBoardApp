@@ -14,7 +14,7 @@ struct PlayerProfileView: View {
         teamViewModel.selectedPlayerProfile!
     }
     
-    @State private var playerUIImage: UIImage?
+    @State private var playerPhoto: UIImage?
     
     private var playerPosition: String {
         Player.PlayerPosition(rawValue: player.position)?.positionToString ?? ""
@@ -26,6 +26,7 @@ struct PlayerProfileView: View {
                 createTopPlayerView()
                 createPlayerInfoView()
             }
+            .padding(.top, 16)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -57,11 +58,18 @@ struct PlayerProfileView: View {
     
     @ViewBuilder
     private func createTopPlayerView() -> some View {
-            Image(uiImage: playerUIImage ?? UIImage(resource: .playerPlaceholder))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 160)
-                .background(Color.red)
+        Image(uiImage: playerPhoto ?? UIImage(resource: .player))
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 160)
+            .clipShape(Circle())
+            .overlay(Circle().stroke(Color.black, lineWidth: 1))
+            .task {
+                if let data = await teamViewModel.getPhotoData(by: player.id),
+                   let image = UIImage(data: data) {
+                    playerPhoto = image
+                }
+            }
     }
     
     @ViewBuilder

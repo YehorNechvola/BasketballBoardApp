@@ -47,9 +47,7 @@ final class DataBaseManager {
     }
     
     // MARK: - Create Team
-    func createTeam(name: String, photoData: Data?) -> String {
-        let id = UUID().uuidString
-        
+    func createTeam(id: String, name: String) -> String {
         let team = TeamCore(
             id: id,
             name: name
@@ -62,12 +60,12 @@ final class DataBaseManager {
     }
     
     // MARK: - Add Player
-    func addPlayer(to team: TeamCore, playerEntity: Player) {
+    func addPlayer(id: String, to team: TeamCore, playerEntity: Player) {
         let startingCount = team.players.filter { $0.isStartingPlayer }.count
         let additionNumber = (team.players.map { $0.additionNumber }.max() ?? 0) + 1
         
         let player = PlayerCore(
-            id: playerEntity.name + UUID().uuidString,
+            id: id,
             name: playerEntity.name,
             surname: playerEntity.surname,
             birthDay: playerEntity.birthDate,

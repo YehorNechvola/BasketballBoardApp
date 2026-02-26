@@ -13,12 +13,13 @@ final class MyTeamViewModel: ObservableObject {
     //MARK: - Properties
     private let storeManager: DataBaseManager = .shared
     private let userDefaultsManager: UserDefaultsManager = .shared
+    private let photoStoreManager: PhotoStoreManager = .shared
     
     @Published var myTeams: [TeamCore] = []
     @Published var shouldShowMessage = false
     
     var currentTeam: TeamCore? {
-        myTeams.first { $0.id == userDefaultsManager.currentTeamId }
+        myTeams.first { $0.teamId == userDefaultsManager.currentTeamId }
     }
     
     var teamsCount: Int { myTeams.count }
@@ -44,6 +45,7 @@ final class MyTeamViewModel: ObservableObject {
     }
     
     //MARK: - Init
+    
     init() {
         myTeams = storeManager.fetchAllTeams()
     }
@@ -61,6 +63,14 @@ final class MyTeamViewModel: ObservableObject {
         
         storeManager.deletePlayer(from: currentTeam, player: player)
         myTeams = storeManager.fetchAllTeams()
+        
+        Task {
+            do {
+                try await photoStoreManager.deleteImage(for: player.id)
+            } catch {
+                print("Error \(error)")
+            }
+        }
     }
     
     func setPlayerToDelete(_ player: PlayerCore?) {
@@ -80,9 +90,19 @@ final class MyTeamViewModel: ObservableObject {
         shouldShowMessage = true
     }
     
-    func addNewTeam(name: String, imageData: Data? = nil) {
-        userDefaultsManager.currentTeamId = storeManager.createTeam(name: name, photoData: imageData)
-        myTeams = storeManager.fetchAllTeams()
+    
+    func addNewTeam(name: String, imageData: Data) {
+        let id = UUID().uuidString
+        userDefaultsManager.currentTeamId = storeManager.createTeam(id: id, name: name)
+        
+        Task {
+            do {
+               try await photoStoreManager.saveImage(imageData, for: id)
+            } catch {
+                print("Saving photo error: \(error)")
+            }
+            myTeams = storeManager.fetchAllTeams()
+        }
     }
     
     func addNewPlayer(_ player: Player?) {
@@ -91,8 +111,23 @@ final class MyTeamViewModel: ObservableObject {
             return
         }
         
-        storeManager.addPlayer(to: currentTeam, playerEntity: player)
-        myTeams = storeManager.fetchAllTeams()
+        let id = UUID().uuidString
+        storeManager.addPlayer(id: id, to: currentTeam, playerEntity: player)
+        
+        Task {
+            if let imageData = player.photoData {
+                do {
+                   try await photoStoreManager.saveImage(imageData, for: id)
+                } catch {
+                    print("Saving photo error: \(error)")
+                }
+            }
+            myTeams = storeManager.fetchAllTeams()
+        }
+    }
+    
+    func getPhotoData(by id: String) async -> Data? {
+        await photoStoreManager.loadImage(for: id)
     }
     
     func tapOnPlayer(_ player: PlayerCore, with coordinator: MyTeamFlowCoordinator) {
@@ -115,5 +150,4 @@ final class MyTeamViewModel: ObservableObject {
 
 //MARK: - Private methods
 private extension MyTeamViewModel {
-    
 }

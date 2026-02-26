@@ -10,14 +10,14 @@ import SwiftData
 
 @Model
 final class TeamCore {
-    @Attribute(.unique) var id: String
+    var teamId: String
     var name: String
     
     @Relationship(deleteRule: .cascade)
     var players: [PlayerCore] = []
     
     init(id: String, name: String) {
-        self.id = id
+        self.teamId = id
         self.name = name
     }
 }

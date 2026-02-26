@@ -19,6 +19,7 @@
 		34CC69372F3E15C600A72551 /* BoardCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CC69362F3E15C600A72551 /* BoardCoordinatorView.swift */; };
 		34CC693A2F3E172600A72551 /* MyTeamFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CC69392F3E172600A72551 /* MyTeamFlowCoordinator.swift */; };
 		34CC693C2F3E175D00A72551 /* MyTeamCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CC693B2F3E175D00A72551 /* MyTeamCoordinatorView.swift */; };
+		34E33B432F50AE4100C0A90C /* PhotoStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E33B422F50AE4100C0A90C /* PhotoStoreManager.swift */; };
 		A60A5F222C21B55900AA040D /* CreateNewTeamScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60A5F212C21B55900AA040D /* CreateNewTeamScreen.swift */; };
 		A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */; };
 		A60CD4832C07808C00CC8BC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60CD4822C07808C00CC8BC1 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		34CC69362F3E15C600A72551 /* BoardCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCoordinatorView.swift; sourceTree = "<group>"; };
 		34CC69392F3E172600A72551 /* MyTeamFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamFlowCoordinator.swift; sourceTree = "<group>"; };
 		34CC693B2F3E175D00A72551 /* MyTeamCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamCoordinatorView.swift; sourceTree = "<group>"; };
+		34E33B422F50AE4100C0A90C /* PhotoStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStoreManager.swift; sourceTree = "<group>"; };
 		A60A5F212C21B55900AA040D /* CreateNewTeamScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewTeamScreen.swift; sourceTree = "<group>"; };
 		A60CD47B2C07808900CC8BC1 /* BasketballBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasketballBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A60CD47E2C07808900CC8BC1 /* BasketballBoardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketballBoardApp.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			children = (
 				A61C1D9D2C6F40F500472F61 /* DateFormatterService.swift */,
 				A6680F9F2C78BDA1008B9031 /* UserDefaultsManager.swift */,
+				34E33B422F50AE4100C0A90C /* PhotoStoreManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				34CC693C2F3E175D00A72551 /* MyTeamCoordinatorView.swift in Sources */,
 				A60CD49E2C07893700CC8BC1 /* BoardViewController.swift in Sources */,
 				A62638472C0DC7A800FB6BE2 /* MyTeamEntity.swift in Sources */,
+				34E33B432F50AE4100C0A90C /* PhotoStoreManager.swift in Sources */,
 				34CC69372F3E15C600A72551 /* BoardCoordinatorView.swift in Sources */,
 				A60CD47F2C07808900CC8BC1 /* BasketballBoardApp.swift in Sources */,
 				340295662F409404002E5DFA /* CropScreen.swift in Sources */,

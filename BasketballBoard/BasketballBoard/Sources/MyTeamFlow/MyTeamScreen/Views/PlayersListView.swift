@@ -13,6 +13,7 @@ struct PlayersListView: View {
     @EnvironmentObject var coordinator: MyTeamFlowCoordinator
     @State private var cancellable: AnyCancellable?
     @State private var isPresentedActionSheet = false
+    @State private var playerPhotos: [String: UIImage] = [:]
     
     var body: some View {
         GeometryReader { proxy in
@@ -52,9 +53,17 @@ private extension PlayersListView {
                 Button {
                     viewModel.tapOnPlayer(players[index], with: coordinator)
                 } label: {
-                    PlayerItemViewCell(player: players[index])
+                    let playerId = players[index].id
+                    PlayerItemViewCell(player: players[index],
+                                       playerImage: playerPhotos[playerId] ?? UIImage(resource: .player))
                         .contentShape(Rectangle())
                         .frame(height: 40)
+                        .task {
+                            if let data = await viewModel.getPhotoData(by: playerId),
+                               let image = UIImage(data: data) {
+                                playerPhotos[playerId] = image
+                            }
+                        }
                 }
                 .buttonStyle(.plain)
                 .swipeActions {
